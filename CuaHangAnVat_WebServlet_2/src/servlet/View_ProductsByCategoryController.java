@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.CategoryDAO;
 import dao.ProductDAO;
+import entities.Cart;
+import ultilities.Constants_Value;
 
 /**
  * Servlet implementation class View_ProductsByCategoryController
@@ -18,7 +20,7 @@ import dao.ProductDAO;
 @WebServlet("/View_ProductsByCategoryController")
 public class View_ProductsByCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	Cart cart = new Cart();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,6 +41,14 @@ public class View_ProductsByCategoryController extends HttpServlet {
 			request.setAttribute("productList", ProductDAO.getProductsByCategory(categoryID));
 			// get all categories
 			request.setAttribute("categoryList", CategoryDAO.getAll());
+			//get session
+			if(request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
+			{
+				cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
+				request.setAttribute("items",cart.getItems());
+				request.setAttribute("sumPrice", cart.getSumPrice());
+			}
+			
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

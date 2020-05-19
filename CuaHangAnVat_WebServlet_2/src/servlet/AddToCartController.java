@@ -17,6 +17,7 @@ import javax.servlet.jsp.PageContext;
 import dao.ProductDAO;
 import entities.Cart;
 import entities.Product;
+import ultilities.Constants_Value;
 
 
 
@@ -51,16 +52,18 @@ public class AddToCartController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		HttpSession session = request.getSession();
-		if(session.getAttribute("cart") == null)
+		//Find session cart, if not exist then create a new one
+		if(session.getAttribute(Constants_Value.SESSION_CART) == null)
 		{
-			session.setAttribute("cart", cart);
+			session.setAttribute(Constants_Value.SESSION_CART, cart);
 		}
 		
+		//Get product id and order quantity from form
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
+		//Create a new product object from selected id
 		Product product = new Product();
 		try {
 			product = ProductDAO.getProductByID(product_id);
@@ -70,8 +73,8 @@ public class AddToCartController extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		cart.addToCart(product);
-		System.out.println(cart.getItems().size());
+		cart.addToCart(product); //add the product to cart
+		cart.sumPrice(); //calculate sum price of all items in cart
 		
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_HomeController");
 	}

@@ -19,8 +19,10 @@ public class ProductDAO {
 		while(rs.next())
 		{
 			String categoryName = CategoryDAO.getCategoryNameFromID(rs.getInt("category_id"));
-			product = new Product(rs.getInt("product_id"), rs.getString("name"), rs.getString("img_name"),
-					rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"),categoryName, rs.getString("description"));
+			product = new Product(rs.getInt("product_id"), rs.getString("name"), 
+					rs.getString("img_name"), rs.getInt("quantity"), 
+					rs.getInt("price"), rs.getInt("category_id"),
+					categoryName, rs.getString("description"));
 			break;
 		}
 		return product;

@@ -7,7 +7,6 @@ public class Cart {
 	private int sumPrice = 0;
 
 	public int getSumPrice() {
-		sumPrice();
 		return sumPrice;
 	}
 

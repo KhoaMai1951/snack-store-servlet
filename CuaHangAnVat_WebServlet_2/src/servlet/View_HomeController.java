@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import entities.Cart;
+import ultilities.Constants_Value;
 
 /**
  * Servlet implementation class HomeViewController
@@ -20,6 +21,7 @@ import entities.Cart;
 @WebServlet("/View_HomeController")
 public class View_HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	Cart cart = new Cart();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -43,11 +45,11 @@ public class View_HomeController extends HttpServlet {
 			// get all categories
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			// get session
-			if(request.getSession().getAttribute("cart") != null)
+			if(request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
 			{
-				Cart cart = (Cart) request.getSession().getAttribute("cart");
-				request.setAttribute("items", cart.getItems());
-				request.setAttribute("sumPrice", cart.getSumPrice());
+				cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
+				request.setAttribute("items", cart.getItems()); //get items in cart
+				request.setAttribute("sumPrice", cart.getSumPrice()); //get sum price
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

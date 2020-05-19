@@ -57,7 +57,7 @@ public class ProductUpdateController extends HttpServlet {
 		
 		//if don't change product image
 		Part filePart = request.getPart("image");
-		if(filePart == null)
+		if(filePart.getSize() == 0)
 		{
 			img_name = request.getParameter("img_name");
 			try {
@@ -68,7 +68,7 @@ public class ProductUpdateController extends HttpServlet {
 			}
 		}
 		//change product image too
-		else if (filePart != null) {
+		else {
 			fl.imageUpload(request, resourcesPath);
 			img_name = fl.fileName;
 			try {
