@@ -8,7 +8,7 @@ public class OrderedProduct {
 	boolean isDeleted;
 	
 	public int getId() {
-		return id;
+		return id; 
 	}
 	public void setId(int id) {
 		this.id = id;
