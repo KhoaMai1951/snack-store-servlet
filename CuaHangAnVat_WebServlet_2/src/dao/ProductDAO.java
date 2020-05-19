@@ -75,7 +75,6 @@ public class ProductDAO {
 		String query = "INSERT INTO product (category_id, name, quantity, img_name, description, price) "
 				+ "VALUES ("+category_id+", '"+name+"', "+quantity+", '"+img_name+"', '"+description+"', "+price+")";
 				
-		//DBConn.update(SQLStatement.add("product", colList, valueList));
 		DBConn.update(query);
 	}
 	

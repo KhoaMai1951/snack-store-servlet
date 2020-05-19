@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class Cart {
 	private ArrayList<Product> items = new ArrayList<Product>();
 	private int sumPrice = 0;
+	private int orderQuantity = 0;
+
+	public int getOrderQuantity() {
+		return orderQuantity;
+	}
+
+	public void setOrderQuantity(int orderQuantity) {
+		this.orderQuantity = orderQuantity;
+	}
 
 	public int getSumPrice() {
 		return sumPrice;
@@ -22,18 +31,26 @@ public class Cart {
 		this.items = items;
 	}
 	
-	public void addToCart(Product product)
+	public void addToCart(Product product, int orderQuantity)
 	{	
+		//item is not in cart
 		if(!checkIfItemAlreadyInCart(product))
 		{
+			product.setOrderQuantity(orderQuantity);
 			this.items.add(product);
+			this.sumPrice += product.getPrice() * orderQuantity;
 		}
+		//item is already in cart
 		else if(checkIfItemAlreadyInCart(product))
 		{
-			addExistingItemInCart(product);
+			int newOrderQuantity = product.getOrderQuantity() + orderQuantity;
+			product.setOrderQuantity(newOrderQuantity);
+			addExistingItemInCart(product);		
+			this.sumPrice += product.getPrice() * orderQuantity;
 		}
 	}
 	
+	//Add existing item in cart
 	public void addExistingItemInCart(Product product)
 	{
 		for(int i=0; i < this.items.size(); i++)
@@ -47,6 +64,7 @@ public class Cart {
 		}
 	}
 	
+	//Check if an item is already in cart
 	public boolean checkIfItemAlreadyInCart(Product product)
 	{
 		boolean flag = false;
@@ -64,11 +82,29 @@ public class Cart {
 		return flag;
 	}
 	
-	public void sumPrice() 
+	//Delete an item in cart
+	public void deleteItem(int product_id)
 	{
-		for(int i=0; i < this.items.size(); i++)
+		//delete that item
+		for(int i = 0; i < this.items.size(); i++)
 		{
-			this.sumPrice += this.items.get(i).orderQuantity * this.items.get(i).getPrice();
+			if(product_id == this.items.get(i).getId())
+			{
+				this.items.remove(i);
+				break;
+			}
+		}
+		//Recalculate the sum of cart after delete an item
+		recalculateSumAterDeleteAnItem();
+	}
+	
+	//Recalculate the sum of cart after delete an item
+	public void recalculateSumAterDeleteAnItem()
+	{
+		this.sumPrice = 0;
+		for(int i = 0; i < this.items.size(); i++)
+		{
+			this.sumPrice += this.items.get(i).getPrice() * this.items.get(i).getOrderQuantity();
 		}
 	}
 }

@@ -49,11 +49,5 @@ public class DBConn {
 		String sql = query;
 		
 		int test = statement.executeUpdate(sql);
-		
-		if(test > 0)
-		{
-			System.out.println("OK");
-		}
-		else System.out.println("NOT OK");
 	}
 }

@@ -61,20 +61,20 @@ public class AddToCartController extends HttpServlet {
 		
 		//Get product id and order quantity from form
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 		
 		//Create a new product object from selected id
 		Product product = new Product();
 		try {
 			product = ProductDAO.getProductByID(product_id);
-			product.setOrderQuantity(quantity);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		cart.addToCart(product); //add the product to cart
-		cart.sumPrice(); //calculate sum price of all items in cart
+		cart.setOrderQuantity(orderQuantity);
+		cart.addToCart(product, orderQuantity); //add the product to cart
+
 		
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_HomeController");
 	}
