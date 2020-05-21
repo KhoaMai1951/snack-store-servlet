@@ -12,7 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import dao.CustomerDAO;
 import dao.OrderDAO;
+import dao.OrderedProductDAO;
 import entities.Cart;
+import entities.OrderedProduct;
+import entities.Product;
 import ultilities.Constants_Value;
 
 /**
@@ -38,7 +41,7 @@ public class CheckoutController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_CheckoutController");
 	}
 
 	/**
@@ -60,21 +63,30 @@ public class CheckoutController extends HttpServlet {
 		}
 		
 		try {
-			//add customer to database
-			CustomerDAO.add(customerName, customerEmail, customerAddress, 
-					customerPhone, customerSessionID);
-			//add order to database and link customer session id to order's customer_id
-			OrderDAO.add(customerSessionID);
-			//add list of ordered products to database
-			for(int i=0; i < cart.getItems().size(); i++)
+			//if customer order 1 or more product, then proceed
+			if(cart.getItems().size() > 0)
 			{
-				Product
+				//add customer to database
+				CustomerDAO.add(customerName, customerEmail, customerAddress, 
+						customerPhone, customerSessionID);
+				//add order to database and link customer session id to order's customer_id
+				OrderDAO.add(customerSessionID);
+				//add list of ordered products to database
+				for(int i=0; i < cart.getItems().size(); i++)
+				{
+					OrderedProduct orderedProduct = new OrderedProduct();
+					orderedProduct.setProductID(cart.getItems().get(i).getId());
+					orderedProduct.setQuantity(cart.getItems().get(i).getOrderQuantity());
+					orderedProduct.setOrderID(OrderDAO.getOrderID(customerSessionID));
+					
+					OrderedProductDAO.add(orderedProduct);
+				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_HomeController");
 	}
 
 }
