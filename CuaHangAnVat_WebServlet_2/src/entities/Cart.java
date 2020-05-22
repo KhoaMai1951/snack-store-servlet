@@ -42,9 +42,8 @@ public class Cart {
 		}
 		//item is already in cart
 		else if(checkIfItemAlreadyInCart(product))
-		{
-			int newOrderQuantity = product.getOrderQuantity() + orderQuantity;
-			product.setOrderQuantity(newOrderQuantity);
+		{		
+			product.setOrderQuantity(orderQuantity);
 			addExistingItemInCart(product);		
 			this.sumPrice += product.getPrice() * orderQuantity;
 		}
@@ -90,21 +89,12 @@ public class Cart {
 		{
 			if(product_id == this.items.get(i).getId())
 			{
+				//Recalculate the sum of cart after delete an item
+				this.sumPrice -= this.items.get(i).orderQuantity * this.items.get(i).price;
+				//Delete item out of cart
 				this.items.remove(i);
 				break;
 			}
-		}
-		//Recalculate the sum of cart after delete an item
-		recalculateSumAterDeleteAnItem();
-	}
-	
-	//Recalculate the sum of cart after delete an item
-	public void recalculateSumAterDeleteAnItem()
-	{
-		this.sumPrice = 0;
-		for(int i = 0; i < this.items.size(); i++)
-		{
-			this.sumPrice += this.items.get(i).getPrice() * this.items.get(i).getOrderQuantity();
 		}
 	}
 }

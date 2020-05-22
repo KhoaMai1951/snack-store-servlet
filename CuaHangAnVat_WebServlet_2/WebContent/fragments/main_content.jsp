@@ -32,6 +32,7 @@ $(document).ready(function(){
 						<div class="card-body">
 							<h5 class="card-title">${product.name}</h5>
 							<p class="card-text">${product.description}</p>
+							<p class="card-text">Sản phẩm còn: <b>${product.quantity}</b></p>
 							<b class="card-title">Giá: <fmt:formatNumber type="currency"
 									value="${product.price}" /></b>
 							<p></p>

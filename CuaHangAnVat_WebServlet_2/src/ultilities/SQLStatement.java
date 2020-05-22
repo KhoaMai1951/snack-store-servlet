@@ -17,4 +17,8 @@ public class SQLStatement {
 	{
 		return "UPDATE "+table+" SET is_deleted = true WHERE "+table_id+" = "+id;
 	}
+	public static String updateIntValue(String table, String col, int colNewValue, String condition )
+	{
+		return "UPDATE "+table+" SET "+col+" = "+colNewValue+" WHERE "+condition+"";
+	}
 }

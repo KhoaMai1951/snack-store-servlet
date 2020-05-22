@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.CustomerDAO;
 import dao.OrderDAO;
 import dao.OrderedProductDAO;
+import dao.ProductDAO;
 import entities.Cart;
 import entities.OrderedProduct;
 import entities.Product;
@@ -66,20 +67,44 @@ public class CheckoutController extends HttpServlet {
 			//if customer order 1 or more product, then proceed
 			if(cart.getItems().size() > 0)
 			{
-				//add customer to database
-				CustomerDAO.add(customerName, customerEmail, customerAddress, 
-						customerPhone, customerSessionID);
-				//add order to database and link customer session id to order's customer_id
-				OrderDAO.add(customerSessionID);
-				//add list of ordered products to database
+//				abstracting product in store quantity 
+//				and check if still have that product left in store
+				boolean flagProductStillInStore = true;
 				for(int i=0; i < cart.getItems().size(); i++)
 				{
-					OrderedProduct orderedProduct = new OrderedProduct();
-					orderedProduct.setProductID(cart.getItems().get(i).getId());
-					orderedProduct.setQuantity(cart.getItems().get(i).getOrderQuantity());
-					orderedProduct.setOrderID(OrderDAO.getOrderID(customerSessionID));
-					
-					OrderedProductDAO.add(orderedProduct);
+					if(OrderedProduct.checkInStoreQuantity(cart.getItems().get(i)) == false)
+					{
+						flagProductStillInStore = false;
+						break;
+					}
+				}
+				//if product still in store, proceed
+				if(flagProductStillInStore)
+				{
+					//abstracting in store quantity
+					for(int i=0; i < cart.getItems().size(); i++)
+					{
+						int newQuantity = ProductDAO.getQuantity(cart.getItems().get(i).getId())  
+								- cart.getItems().get(i).getOrderQuantity() ;
+						ProductDAO.setQuantity(cart.getItems().get(i).getId(), newQuantity);
+					}
+					//add customer to database
+					CustomerDAO.add(customerName, customerEmail, customerAddress, 
+							customerPhone, customerSessionID);
+					//add order to database and link customer session id to order's customer_id
+					OrderDAO.add(customerSessionID);
+					//add list of ordered products to database
+					for(int i=0; i < cart.getItems().size(); i++)
+					{
+						OrderedProduct orderedProduct = new OrderedProduct();
+						orderedProduct.setProductID(cart.getItems().get(i).getId());
+						orderedProduct.setQuantity(cart.getItems().get(i).getOrderQuantity());
+						orderedProduct.setOrderID(OrderDAO.getOrderID(customerSessionID));
+						
+						OrderedProductDAO.add(orderedProduct);
+					}
+					//delete session cart
+					request.getSession().removeAttribute(Constants_Value.SESSION_CART);
 				}
 			}
 		} catch (ClassNotFoundException | SQLException e) {

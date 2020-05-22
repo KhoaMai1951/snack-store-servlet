@@ -47,7 +47,11 @@ public class DBConn {
 		statement = ((java.sql.Connection) conn).createStatement();
 
 		String sql = query;
-		
+
 		int test = statement.executeUpdate(sql);
+
+		if (conn != null) {
+			conn.close();
+		}
 	}
 }

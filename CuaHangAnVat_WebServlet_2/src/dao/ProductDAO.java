@@ -84,7 +84,7 @@ public class ProductDAO {
 		DBConn.update(SQLStatement.delete("product", "product_id", id));
 	}
 	
-	//get specific product
+	//get product by id
 	public static Product getProduct(String id) throws ClassNotFoundException, SQLException
 	{
 		Product product = new Product();
@@ -108,6 +108,26 @@ public class ProductDAO {
 		String query = "UPDATE product SET category_id="+category_id+","
 				+ "name='"+name+"',quantity="+quantity+","
 				+ "description='"+description+"',price="+price+", img_name='"+img_name+"' WHERE product_id = "+product_id+";";
+		DBConn.update(query);
+	}
+	
+	//get quantity
+	public static int getQuantity(int product_id) throws ClassNotFoundException, SQLException
+	{
+		String query = SQLStatement.getSomethingFromWhere("quantity", "product", "product_id="+product_id);
+		ResultSet rs = DBConn.query(query);
+		while(rs.next())
+		{
+			return rs.getInt("quantity");
+		}
+		return -1;
+	}
+	
+	//set quantity
+	public static void setQuantity(int product_id, int newQuantity) throws ClassNotFoundException, SQLException
+	{
+		String query = SQLStatement.updateIntValue("product", "quantity", 
+				newQuantity, "product_id = "+product_id);
 		DBConn.update(query);
 	}
 }

@@ -81,7 +81,8 @@ CREATE TABLE `customer` (
   `address` varchar(45) DEFAULT NULL,
   `id_deleted` tinyint(4) DEFAULT '0',
   `session_id` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`)
+  PRIMARY KEY (`customer_id`),
+  UNIQUE KEY `session_id_UNIQUE` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -108,7 +109,9 @@ CREATE TABLE `order` (
   `order_date` date DEFAULT NULL,
   `is_deleted` tinyint(4) DEFAULT '0',
   `is_delivered` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`order_id`)
+  PRIMARY KEY (`order_id`),
+  KEY `fk_order_customer_idx` (`customer_session_id`),
+  CONSTRAINT `fk_order_customer` FOREIGN KEY (`customer_session_id`) REFERENCES `customer` (`session_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -135,7 +138,11 @@ CREATE TABLE `ordered_product` (
   `product_id` int(11) DEFAULT NULL,
   `order_id` int(11) DEFAULT NULL,
   `is_deleted` tinyint(4) DEFAULT '0',
-  PRIMARY KEY (`ordered_product_id`)
+  PRIMARY KEY (`ordered_product_id`),
+  KEY `fk_ordered_product_order1_idx` (`order_id`),
+  KEY `fk_ordered_product_product1_idx` (`product_id`),
+  CONSTRAINT `fk_ordered_product_order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
+  CONSTRAINT `fk_ordered_product_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -166,8 +173,10 @@ CREATE TABLE `product` (
   `price` int(11) DEFAULT NULL,
   `is_deleted` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`product_id`),
-  UNIQUE KEY `product_id_UNIQUE` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `product_id_UNIQUE` (`product_id`),
+  KEY `fk_product_category1_idx` (`category_id`),
+  CONSTRAINT `fk_product_category1` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +185,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
-INSERT INTO `product` VALUES (1,1,'bánh bông lan',35345345,'f9a35b3e-c3a7-418a-80f2-fad7e3d61e98.png',' clause that determines how many records wi',55000,1),(2,2,'test',15,'039b610c-b764-4283-b229-93d2c480b4fd.png','testdfg',6,1),(4,1,'chocopie',55,'b09d0d36-fcd5-4e35-97e9-b5dc17392101.png','asdfasdfsfasdfasf',10000,0),(5,2,'khoa',634,'676726a7-dd1b-462b-aa92-d389c2135a50.png','sfdsdf',15000,0),(6,2,'15520371sdfsfd',63,'6aa1e0e3-dacd-437e-b12e-0898821dea44.png','sfasfsafsdf',30000,0),(7,2,'chronicle1951@gmail.com',15,' ','asdfsfasfd',666,1),(8,2,'móc khóa',6667,'280fe44a-fcaf-4932-a10f-765834dc5cbc.png','asdfasdfsfasdfasf',778,1);
+INSERT INTO `product` VALUES (1,1,'bánh bông lan',35345345,'f9a35b3e-c3a7-418a-80f2-fad7e3d61e98.png',' clause that determines how many records wi',55000,1),(2,2,'test',15,'039b610c-b764-4283-b229-93d2c480b4fd.png','testdfg',6,1),(4,1,'chocopie',55,'b09d0d36-fcd5-4e35-97e9-b5dc17392101.png','asdfasdfsfasdfasf',10000,0),(5,2,'khoa',634,'676726a7-dd1b-462b-aa92-d389c2135a50.png','sfdsdf',15000,0),(6,2,'15520371sdfsfd',63,'6aa1e0e3-dacd-437e-b12e-0898821dea44.png','sfasfsafsdf',30000,0),(7,2,'chronicle1951@gmail.com',15,' ','asdfsfasfd',666,1),(8,2,'móc khóa',6667,'280fe44a-fcaf-4932-a10f-765834dc5cbc.png','asdfasdfsfasdfasf',778,1),(9,1,'Bánh Oreo',66666,'d1383465-320d-4c8f-9a05-fd5b32ca3aa5.png','asdfsfasfd',66777,0);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -189,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-21 19:56:13
+-- Dump completed on 2020-05-22 10:13:27

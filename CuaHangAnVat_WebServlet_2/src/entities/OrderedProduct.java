@@ -1,5 +1,10 @@
 package entities;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import dao.ProductDAO;
+
 public class OrderedProduct {
 	int id;
 	int quantity;
@@ -38,5 +43,19 @@ public class OrderedProduct {
 		this.isDeleted = isDeleted;
 	}
 	
-	
+	//Abstracting product in store quantity
+	public static boolean checkInStoreQuantity(Product orderedProduct) throws ClassNotFoundException, SQLException
+	{
+		int inStoreQuantity = ProductDAO.getQuantity(orderedProduct.getId());
+		int newInStoreQuantity = -1;
+		if(inStoreQuantity > 0)
+		{
+			newInStoreQuantity = inStoreQuantity - orderedProduct.getOrderQuantity();
+			if(newInStoreQuantity >= 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
