@@ -72,5 +72,4 @@ public class View_ProductUploadController extends HttpServlet {
 			ProductDAO.add(category_id, name, quantity, img_name, description, price);
 		}
 	}
-
 }
