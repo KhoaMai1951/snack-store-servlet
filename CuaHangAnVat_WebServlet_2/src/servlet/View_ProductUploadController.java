@@ -22,66 +22,54 @@ import ultilities.FileHandler;
 @MultipartConfig
 public class View_ProductUploadController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public View_ProductUploadController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public View_ProductUploadController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+
 		request.getRequestDispatcher("/pages/productUpload.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		FileHandler fl = new FileHandler();
-		String resourcesPath = getServletContext().getRealPath("/")+"resources";
-		
+		String resourcesPath = getServletContext().getRealPath("/") + "resources";
+
 		String name = request.getParameter("name");
 		String img_name;
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		int price = Integer.parseInt(request.getParameter("price"));
 		int category_id = Integer.parseInt(request.getParameter("categories"));
 		String description = request.getParameter("description");
-		
+
 		Part filePart = request.getPart("image");
-		//if don't upload image
-		if(filePart != null)
-		{
+		// if don't upload image
+		if (filePart != null) {
 			fl.imageUpload(request, resourcesPath);
 			img_name = fl.fileName;
-			try {
-				ProductDAO.add(category_id, name, quantity, img_name, description, price);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		else
-		{
+			ProductDAO.add(category_id, name, quantity, img_name, description, price);
+		} else {
 			img_name = "";
-			try {
-				ProductDAO.add(category_id, name, quantity, img_name, description, price);
-			} catch (ClassNotFoundException | SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ProductDAO.add(category_id, name, quantity, img_name, description, price);
 		}
 	}
 

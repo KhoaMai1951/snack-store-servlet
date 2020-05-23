@@ -18,45 +18,40 @@ import dao.ProductDAO;
 @WebServlet("/ProductDeleteController")
 public class ProductDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductDeleteController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		try {
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			request.setAttribute("productList", ProductDAO.getAll());
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public ProductDeleteController() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			request.setAttribute("productList", ProductDAO.getAll());
-			ProductDAO.delete(request.getParameter("productID"));
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		request.setAttribute("productList", ProductDAO.getAll());
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		request.setAttribute("productList", ProductDAO.getAll());
+		ProductDAO.delete(request.getParameter("productID"));
+
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_ProductManagementController");
 	}
 

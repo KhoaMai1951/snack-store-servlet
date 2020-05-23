@@ -21,43 +21,43 @@ import ultilities.Constants_Value;
 public class View_CheckoutController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Cart cart = new Cart();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public View_CheckoutController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public View_CheckoutController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			// get all products
-			request.setAttribute("productList", ProductDAO.getAll());
-			// get all categories
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			// get session
-			if(request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
-			{
-				cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
-				request.setAttribute("items", cart.getItems()); //get items in cart
-				request.setAttribute("sumPrice", cart.getSumPrice()); //get sum price
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		// get all products
+		request.setAttribute("productList", ProductDAO.getAll());
+		// get all categories
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		// get session
+		if (request.getSession().getAttribute(Constants_Value.SESSION_CART) != null) {
+			cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
+			request.setAttribute("items", cart.getItems()); // get items in cart
+			request.setAttribute("sumPrice", cart.getSumPrice()); // get sum price
 		}
 
 		request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

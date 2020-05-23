@@ -39,7 +39,7 @@ public class UTF8_Filter implements Filter {
 		// place your code here
 		request.setCharacterEncoding(encoding);
 		response.setCharacterEncoding(encoding);
-		// pass the request along the filter chain
+		// Cho phép request được đi tiếp. (Vượt qua Filter này).
 		chain.doFilter(request, response);
 	}
 

@@ -19,8 +19,6 @@ import entities.Cart;
 import entities.Product;
 import ultilities.Constants_Value;
 
-
-
 /**
  * Servlet implementation class AddToCartController
  */
@@ -28,54 +26,54 @@ import ultilities.Constants_Value;
 public class AddToCartController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Cart cart = new Cart();
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddToCartController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-    @Override
-    public void init() throws ServletException {
-    	// TODO Auto-generated method stub
-    	super.init();
-    }
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	public AddToCartController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		HttpSession session = request.getSession();
-		//Find session cart, if not exist then create a new one
-		if(session.getAttribute(Constants_Value.SESSION_CART) == null)
-		{
+		// Find session cart, if not exist then create a new one
+		if (session.getAttribute(Constants_Value.SESSION_CART) == null) {
 			session.setAttribute(Constants_Value.SESSION_CART, cart);
 		}
-		
-		//Get product id and order quantity from form
+
+		// Get product id and order quantity from form
 		int product_id = Integer.parseInt(request.getParameter("product_id"));
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
-		
-		//Create a new product object from selected id
-		Product product = new Product();
-		try {
-			product = ProductDAO.getProductByID(product_id);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		cart.setOrderQuantity(orderQuantity);
-		cart.addToCart(product, orderQuantity); //add the product to cart
 
-		
+		// Create a new product object from selected id
+		Product product = new Product();
+
+		product = ProductDAO.getProductByID(product_id);
+
+		cart.setOrderQuantity(orderQuantity);
+		cart.addToCart(product, orderQuantity); // add the product to cart
+
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_HomeController");
 	}
 

@@ -21,6 +21,7 @@ import ultilities.Constants_Value;
 public class View_ProductsByCategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	Cart cart = new Cart();
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -36,26 +37,18 @@ public class View_ProductsByCategoryController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		int categoryID = Integer.parseInt(request.getParameter("category_id"));
-		try {
-			// get products by category
-			request.setAttribute("productList", ProductDAO.getProductsByCategory(categoryID));
-			// get all categories
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			//get session
-			if(request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
-			{
-				cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
-				request.setAttribute("items",cart.getItems());
-				request.setAttribute("sumPrice", cart.getSumPrice());
-			}
-			
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		// get products by category
+		request.setAttribute("productList", ProductDAO.getProductsByCategory(categoryID));
+		// get all categories
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		// get session
+		if (request.getSession().getAttribute(Constants_Value.SESSION_CART) != null) {
+			cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
+			request.setAttribute("items", cart.getItems());
+			request.setAttribute("sumPrice", cart.getSumPrice());
 		}
+
 		request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
 	}
 

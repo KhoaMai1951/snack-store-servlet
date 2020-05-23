@@ -39,21 +39,15 @@ public class View_HomeController extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		try {
-			// get all products
-			request.setAttribute("productList", ProductDAO.getAll());
-			// get all categories
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			// get session
-			if(request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
-			{
-				cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
-				request.setAttribute("items", cart.getItems()); //get items in cart
-				request.setAttribute("sumPrice", cart.getSumPrice()); //get sum price
-			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// get all products
+		request.setAttribute("productList", ProductDAO.getAll());
+		// get all categories
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		// get session
+		if (request.getSession().getAttribute(Constants_Value.SESSION_CART) != null) {
+			cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
+			request.setAttribute("items", cart.getItems()); // get items in cart
+			request.setAttribute("sumPrice", cart.getSumPrice()); // get sum price
 		}
 
 		request.getRequestDispatcher("/pages/index.jsp").forward(request, response);

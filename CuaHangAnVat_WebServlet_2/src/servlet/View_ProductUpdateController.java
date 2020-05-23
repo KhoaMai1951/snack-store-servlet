@@ -21,40 +21,38 @@ import entities.Product;
 @WebServlet("/View_ProductUpdateController")
 public class View_ProductUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public View_ProductUpdateController() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public View_ProductUpdateController() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/View_ProductManagementController");
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			Product product = ProductDAO.getProduct(request.getParameter("product_id"));
-			ArrayList<Category> categoryList = CategoryDAO.getAll();
-			request.setAttribute("categoryList", categoryList);
-			request.setAttribute("product", product);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+
+		Product product = ProductDAO.getProduct(request.getParameter("product_id"));
+		ArrayList<Category> categoryList = CategoryDAO.getAll();
+		request.setAttribute("categoryList", categoryList);
+		request.setAttribute("product", product);
+
 		request.getRequestDispatcher("/pages/productUpdate.jsp").forward(request, response);
 	}
 

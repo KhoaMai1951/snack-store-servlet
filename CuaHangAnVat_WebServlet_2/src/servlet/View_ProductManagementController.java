@@ -35,22 +35,16 @@ public class View_ProductManagementController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		try {
-			request.setAttribute("categoryList", CategoryDAO.getAll());
-			request.setAttribute("productList", ProductDAO.getAll());
-			// get session
-			if (request.getSession().getAttribute("cart") != null) {
-				Cart cart = (Cart) request.getSession().getAttribute("cart");
-				request.setAttribute("items", cart.getItems());
-				request.setAttribute("sumPrice", cart.getSumPrice());
-			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+		request.setAttribute("categoryList", CategoryDAO.getAll());
+		request.setAttribute("productList", ProductDAO.getAll());
+		// get session
+		if (request.getSession().getAttribute("cart") != null) {
+			Cart cart = (Cart) request.getSession().getAttribute("cart");
+			request.setAttribute("items", cart.getItems());
+			request.setAttribute("sumPrice", cart.getSumPrice());
 		}
+
 		request.getRequestDispatcher("/pages/productManagement.jsp").forward(request, response);
 	}
 

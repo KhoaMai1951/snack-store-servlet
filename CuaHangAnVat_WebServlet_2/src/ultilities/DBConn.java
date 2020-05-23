@@ -4,12 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBConn {
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/cuahanganvat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	private static final String JDBC_DRIVER_CLASS = "com.mysql.cj.jdbc.Driver";
 	private static final String JDBC_USERNAME = "root";
 	private static final String JDBC_PASSWORD = "null";
+
+	public Connection conn = null;
+	public ResultSet resultSet = null;
+	public java.sql.Statement statement = null;
 
 	// Kết nối CSDL
 	public static Connection connect() throws SQLException, ClassNotFoundException {
@@ -18,40 +23,57 @@ public class DBConn {
 		return conn;
 	}
 
-	// Query
-	public static ResultSet query(String query) throws ClassNotFoundException, SQLException {
-		Connection conn = null;
+//	// Query
+//	public static ResultSet query(String query) throws SQLException {
+//		Connection conn = null;
+//		ResultSet resultSet = null;
+//		java.sql.Statement statement = null;
+//		try {
+//			conn = DBConn.connect();
+//
+//			statement = conn.createStatement();
+//
+//			String sql = query;
+//
+//			resultSet = statement.executeQuery(sql);
+//
+//		} catch (ClassNotFoundException | SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//		return resultSet;
+//	}
 
-		conn = DBConn.connect();
+	// Query test
+	public ResultSet query(String query) throws SQLException {
+		try {
+			conn = DBConn.connect();
 
-		java.sql.Statement statement = null;
+			statement = conn.createStatement();
 
-		statement = conn.createStatement();
+			String sql = query;
 
-		String sql = query;
-		ResultSet resultSet = null;
+			resultSet = statement.executeQuery(sql);
 
-		resultSet = statement.executeQuery(sql);
-
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return resultSet;
 	}
 
 	// Update
-	public static void update(String query) throws ClassNotFoundException, SQLException {
-		Connection conn = null;
+	public void update(String query) throws SQLException {
+		try {
+			conn = DBConn.connect();
 
-		conn = DBConn.connect();
+			String sql = query;
 
-		java.sql.Statement statement = null;
+			int test = statement.executeUpdate(sql);
 
-		statement = ((java.sql.Connection) conn).createStatement();
-
-		String sql = query;
-
-		int test = statement.executeUpdate(sql);
-
-		if (conn != null) {
-			conn.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
