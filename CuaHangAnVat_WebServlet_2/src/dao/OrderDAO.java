@@ -3,7 +3,7 @@ package dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-
+import ultilities.DBClose;
 import ultilities.DBConn;
 
 public class OrderDAO {
@@ -20,16 +20,7 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	//Get order_id from customer_session_id
@@ -41,7 +32,7 @@ public class OrderDAO {
 		
 		String query = "SELECT order_id FROM `order` WHERE customer_session_id = '"+customer_session_id+"'";
 		
-		ResultSet rs;
+		ResultSet rs = null;
 		
 		try {
 			rs = dbConn.query(query);
@@ -54,17 +45,7 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 		
 		return order_id;

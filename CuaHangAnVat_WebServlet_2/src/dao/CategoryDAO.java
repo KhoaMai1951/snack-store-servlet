@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Category;
+import ultilities.DBClose;
 import ultilities.DBConn;
 import ultilities.SQLStatement;
 
@@ -17,7 +18,7 @@ public class CategoryDAO {
 
 		String query = SQLStatement.getAll("category");
 
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			rs = dbConn.query(query);
 			while (rs.next()) {
@@ -28,17 +29,7 @@ public class CategoryDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.resultSet.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 
 		return categoriesList;
@@ -50,17 +41,12 @@ public class CategoryDAO {
 		String condition = "category_id = " + id;
 		String query = SQLStatement.getSomethingFromWhere(result, table, condition);
 
-		
-//		ResultSet rs = DBConn.query(query);
-//
-//		while (rs.next()) {
-//			return rs.getString("name");
-//		}
-		
 		DBConn dbConn = new DBConn();
 		
+		ResultSet rs = null;
+		
 		try {
-			ResultSet rs = dbConn.query(query);
+			rs = dbConn.query(query);
 			while (rs.next()) {
 				return rs.getString("name");
 			}
@@ -69,17 +55,7 @@ public class CategoryDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 		
 		return "";

@@ -3,6 +3,7 @@ package dao;
 import java.sql.SQLException;
 
 import entities.OrderedProduct;
+import ultilities.DBClose;
 import ultilities.DBConn;
 
 public class OrderedProductDAO {
@@ -17,16 +18,7 @@ public class OrderedProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -46,16 +38,7 @@ public class OrderedProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 }

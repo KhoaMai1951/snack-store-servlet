@@ -23,37 +23,15 @@ public class DBConn {
 		return conn;
 	}
 
-//	// Query
-//	public static ResultSet query(String query) throws SQLException {
-//		Connection conn = null;
-//		ResultSet resultSet = null;
-//		java.sql.Statement statement = null;
-//		try {
-//			conn = DBConn.connect();
-//
-//			statement = conn.createStatement();
-//
-//			String sql = query;
-//
-//			resultSet = statement.executeQuery(sql);
-//
-//		} catch (ClassNotFoundException | SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} 
-//		return resultSet;
-//	}
 
-	// Query test
+	// Query 
 	public ResultSet query(String query) throws SQLException {
 		try {
 			conn = DBConn.connect();
 
 			statement = conn.createStatement();
 
-			String sql = query;
-
-			resultSet = statement.executeQuery(sql);
+			resultSet = statement.executeQuery(query);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
@@ -61,7 +39,7 @@ public class DBConn {
 		}
 		return resultSet;
 	}
-
+	
 	// Update
 	public void update(String query) throws SQLException {
 		try {
@@ -69,7 +47,7 @@ public class DBConn {
 
 			String sql = query;
 
-			int test = statement.executeUpdate(sql);
+			statement.executeUpdate(sql);
 
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block

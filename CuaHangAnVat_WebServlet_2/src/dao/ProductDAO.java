@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import entities.Product;
+import ultilities.DBClose;
 import ultilities.DBConn;
 import ultilities.SQLStatement;
 
@@ -15,9 +16,11 @@ public class ProductDAO {
 		DBConn dbConn = new DBConn();
 		
 		String query = "SELECT * FROM product WHERE product_id = "+product_id+"";
-		ResultSet rs;
+		
+		ResultSet rs = null;
 		
 		Product product = new Product();
+		
 		try {
 			rs = dbConn.query(query);
 			
@@ -33,6 +36,8 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			DBClose.closeQuery(dbConn, rs);
 		}
 
 		return product;
@@ -40,22 +45,13 @@ public class ProductDAO {
 	//get all products
 	public static ArrayList<Product> getAll() {
 		ArrayList<Product> productList = new ArrayList<Product>();
-
-//		String query = SQLStatement.getAll("product");
-//		ResultSet rs = DBConn.query(query);
-//
-//		while (rs.next()) {
-//			String categoryName = CategoryDAO.getCategoryNameFromID(rs.getInt("category_id"));
-//			Product product = new Product(rs.getInt("product_id"), rs.getString("name"), rs.getString("img_name"),
-//					rs.getInt("quantity"), rs.getInt("price"), rs.getInt("category_id"),categoryName, rs.getString("description"));
-//			productList.add(product);
-//		}
 		
 		DBConn dbConn = new DBConn();
 		String query = SQLStatement.getAll("product");
 		
+		ResultSet rs = null;
 		try {
-			ResultSet rs = dbConn.query(query);
+			rs = dbConn.query(query);
 			
 			while (rs.next()) {
 				String categoryName = CategoryDAO.getCategoryNameFromID(rs.getInt("category_id"));
@@ -68,17 +64,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 		
 		return productList;
@@ -93,7 +79,7 @@ public class ProductDAO {
 
 		String query = "SELECT * FROM product WHERE category_id = "+categoryID +" AND is_deleted = 0";
 		
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			rs = dbConn.query(query);
 			while (rs.next()) {
@@ -108,17 +94,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 		return productList;
 	}
@@ -138,16 +114,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -162,16 +129,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -183,7 +141,7 @@ public class ProductDAO {
 		Product product = new Product();
 		String query = "SELECT * FROM product WHERE product_id = " + id;
 		
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			rs = dbConn.query(query);
 			while (rs.next()) {
@@ -197,17 +155,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 
 		return product;
@@ -228,16 +176,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -248,7 +187,7 @@ public class ProductDAO {
 		
 		String query = SQLStatement.getSomethingFromWhere("quantity", "product", "product_id="+product_id);
 		
-		ResultSet rs;
+		ResultSet rs = null;
 		try {
 			rs = dbConn.query(query);
 			while(rs.next())
@@ -259,17 +198,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeQuery(dbConn, rs);
 		}
 		
 		return -1;
@@ -289,16 +218,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			if(null != dbConn.conn)
-			{
-				try {
-					dbConn.statement.close();
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 }
