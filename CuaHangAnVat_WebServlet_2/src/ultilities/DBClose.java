@@ -33,17 +33,17 @@ public class DBClose {
 	}
 
 	// close connection (conn)
-	public static void closeUpdate(DBConn dbConn)
-	{
-		if(null != dbConn.conn)
-		{
-			try {
-				dbConn.statement.close();
-				dbConn.conn.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
+//	public static void closeUpdate(DBConn dbConn)
+//	{
+//		if(null != dbConn.conn)
+//		{
+//			try {
+//				//dbConn.statement.close();
+//				dbConn.conn.close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }

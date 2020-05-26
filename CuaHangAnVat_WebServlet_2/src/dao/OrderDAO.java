@@ -20,7 +20,7 @@ public class OrderDAO {
 			e.printStackTrace();
 		}
 		finally {
-			DBClose.closeUpdate(dbConn);
+			//DBClose.closeUpdate(dbConn);
 		}
 	}
 	//Get order_id from customer_session_id

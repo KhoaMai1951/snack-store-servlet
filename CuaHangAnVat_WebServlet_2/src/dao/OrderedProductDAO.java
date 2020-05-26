@@ -18,7 +18,7 @@ public class OrderedProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBClose.closeUpdate(dbConn);
+			//DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class OrderedProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			DBClose.closeUpdate(dbConn);
+			//DBClose.closeUpdate(dbConn);
 		}
 	}
 }

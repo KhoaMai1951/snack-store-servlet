@@ -16,7 +16,6 @@ import dao.OrderedProductDAO;
 import dao.ProductDAO;
 import entities.Cart;
 import entities.OrderedProduct;
-import entities.Product;
 import ultilities.Constants_Value;
 
 /**

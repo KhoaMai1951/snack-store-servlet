@@ -23,7 +23,7 @@ public class CustomerDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally {
-			DBClose.closeUpdate(dbConn);
+			//DBClose.closeUpdate(dbConn);
 		}
 	}
 }
