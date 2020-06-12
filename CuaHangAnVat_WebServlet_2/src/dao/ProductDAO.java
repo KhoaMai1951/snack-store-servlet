@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import entities.Product;
 import ultilities.DBClose;
 import ultilities.DBConn;
+import ultilities.DBConnPoolTest;
 import ultilities.SQLStatement;
 
 public class ProductDAO {
@@ -46,7 +47,8 @@ public class ProductDAO {
 	public static ArrayList<Product> getAll() {
 		ArrayList<Product> productList = new ArrayList<Product>();
 		
-		DBConn dbConn = new DBConn();
+		//DBConn dbConn = new DBConn();
+		DBConnPoolTest dbConn = new DBConnPoolTest();
 		String query = SQLStatement.getAll("product");
 		
 		ResultSet rs = null;
@@ -64,7 +66,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			DBClose.closeQuery(dbConn, rs);
+			//DBClose.closeQuery(dbConn, rs);
 		}
 		
 		return productList;
@@ -114,7 +116,7 @@ public class ProductDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBClose.closeUpdate(dbConn);
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -129,7 +131,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			//DBClose.closeUpdate(dbConn);
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -167,21 +169,16 @@ public class ProductDAO {
 	{
 		DBConn dbConn = new DBConn();
 		
-//		String query = "UPDATE product SET category_id="+category_id+","
-//				+ "name='"+name+"',quantity="+quantity+","
-//				+ "description='"+description+"',price="+price+", img_name='"+img_name+"' WHERE product_id = "+product_id;
-		
 		String query = "UPDATE product SET category_id="+category_id+","
 				+ "name='"+name+"',quantity="+quantity+","
-				+ "description='"+description+"',price="+price+", img_name='"+img_name+"' WHERE product_id = 4";
-		
+				+ "description='"+description+"',price="+price+", img_name='"+img_name+"' WHERE product_id = "+product_id;
 		try {
 			dbConn.update(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			//DBClose.closeUpdate(dbConn);
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 	
@@ -223,7 +220,7 @@ public class ProductDAO {
 			e.printStackTrace();
 		}
 		finally {
-			//DBClose.closeUpdate(dbConn);
+			DBClose.closeUpdate(dbConn);
 		}
 	}
 }

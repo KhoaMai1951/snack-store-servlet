@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="col-lg-3 " id="mysidebar">
-	<h1 class="my-4">Giỏ hàng</h1>
+	<h1 class="my-4">ABC</h1>
 	<table class="table">
 		<tr>
 			<th>Sản phẩm</th>
@@ -13,7 +13,7 @@
 		<c:forEach items="${items}" var="item">
 			<tr>
 				<td>${item.name}</td>
-				<td>${item.orderQuantity }</td>
+				<td>${item.orderQuantity}</td>
 			</tr>
 		</c:forEach>
 		<tr class="bg-success">
@@ -30,8 +30,7 @@
 		<a href="/CuaHangAnVat_WebServlet_2/View_HomeController"
 			class="list-group-item active">Tất cả sản phẩm</a>
 		<c:forEach items="${categoryList}" var="category">
-			<a
-				href="/CuaHangAnVat_WebServlet_2/View_ProductsByCategoryController?category_id=${category.id }"
+			<a href="/CuaHangAnVat_WebServlet_2/View_ProductsByCategoryController?category_id=${category.id }"
 				class="list-group-item">${category.name}</a>
 		</c:forEach>
 	</div>

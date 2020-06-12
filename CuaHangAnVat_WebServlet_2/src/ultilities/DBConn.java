@@ -16,7 +16,7 @@ public class DBConn {
 	public java.sql.Statement statement = null;
 
 	// Kết nối CSDL
-	public static Connection connect() throws SQLException, ClassNotFoundException {
+	public Connection connect() throws SQLException, ClassNotFoundException {
 		Class.forName(JDBC_DRIVER_CLASS);
 		Connection conn = DriverManager.getConnection(JDBC_URL, JDBC_USERNAME, JDBC_PASSWORD);
 		return conn;
@@ -26,7 +26,7 @@ public class DBConn {
 	// Query 
 	public ResultSet query(String query) throws SQLException {
 		try {
-			conn = DBConn.connect();
+			conn = connect();
 
 			statement = conn.createStatement();
 
@@ -42,7 +42,7 @@ public class DBConn {
 	// Update
 	public void update(String query) throws SQLException {
 		try {
-			conn = DBConn.connect();
+			conn = connect();
 			
 			statement = conn.createStatement();
 
