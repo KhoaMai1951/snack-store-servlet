@@ -58,11 +58,13 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="<c:url value = "/admin/product"/>"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Chỉnh
-						sửa sản phẩm</span></a></li>
+				href="<c:url value = "/admin/product"/>"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Chỉnh sửa sản
+						phẩm</span></a></li>
 			<li class="nav-item active"><a class="nav-link"
-				href="<c:url value = "/View_ProductUploadController"/>"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Thêm
-						mới sản phẩm</span></a></li>
+				href="<c:url value = "/admin/product/add"/>"> <i
+					class="fas fa-fw fa-tachometer-alt"></i> <span>Thêm mới sản
+						phẩm</span></a></li>
 			<li class="nav-item active"><a class="nav-link"
 				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Xử
 						lý đơn hàng</span></a></li>
@@ -78,15 +80,12 @@
 
 		<!-- Content Wrapper -->
 		<div id="content-wrapper" class="d-flex flex-column">
-
 			<!-- Main Content -->
 			<div id="content">
 				<!-- Begin Page Content -->
 				<div class="container-fluid row">
-
-					<!-- 404 Error Text -->
-
-					<table class="table col-md-6" style="max-width: 50%; overflow-y: auto">
+					<table class="table col-md-6"
+						style="max-width: 50%; overflow-y: auto">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">ID</th>
@@ -114,17 +113,13 @@
 							${product.description}
 						</textarea></td>
 									<td>
-										<form method="POST"
-											action="/CuaHangAnVat_WebServlet_2/ProductDeleteController">
-											<input type="submit" value="Xóa"> <input type="text"
-												hidden name="productID" value="${product.id}" />
-										</form>
-										<form method="POST"
-											action="/CuaHangAnVat_WebServlet_2/View_ProductUpdateController">
-											<input type="number" hidden value="${product.id}"
-												name="product_id"> <input type="submit"
-												value="Đến phần chỉnh sửa">
-										</form>
+										<a class="btn btn-danger"
+										href="/CuaHangAnVat_WebServlet_2/admin/product/delete?productID=${product.id}"
+										role="button">Xóa</a>
+										
+										<a class="btn btn-primary"
+										href="/CuaHangAnVat_WebServlet_2/admin/product/edit?product_id=${product.id}"
+										role="button">Chỉnh sửa</a>
 									</td>
 								</tr>
 
@@ -173,7 +168,8 @@
 
 	<!-- Bootstrap core JavaScript-->
 	<script src="../pages/admin/vendor/jquery/jquery.min.js"></script>
-	<script src="../pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="../pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
 	<script src="../pages/admin/vendor/jquery-easing/jquery.easing.min.js"></script>

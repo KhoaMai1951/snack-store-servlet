@@ -62,8 +62,6 @@ public class HomeController extends HttpServlet
 			request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
 			break;
 		}
-
-		
 	}
 
 	/**
