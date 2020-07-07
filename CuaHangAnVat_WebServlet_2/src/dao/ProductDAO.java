@@ -240,11 +240,12 @@ public class ProductDAO
 	public static void updateProduct(int category_id, String name, int quantity, String description, int price,
 			String img_name, int product_id)
 	{
-		DBConn dbConn = new DBConn();
-
 		String query = "UPDATE product SET category_id=" + category_id + "," + "name='" + name + "',quantity="
 				+ quantity + "," + "description='" + description + "',price=" + price + ", img_name='" + img_name
 				+ "' WHERE product_id = " + product_id;
+		
+		DBConn dbConn = new DBConn();
+
 		try
 		{
 			dbConn.update(query);

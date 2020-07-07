@@ -35,7 +35,7 @@
 	<!-- Divider -->
 	<hr class="sidebar-divider my-0">
 	
-	<li class="nav-item active"><a class="nav-link" href="index.html">
+	<li class="nav-item active"><a class="nav-link" href="<c:url value = "/admin/order"/>">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>Xử lý đơn
 				hàng</span>
 	</a></li>
