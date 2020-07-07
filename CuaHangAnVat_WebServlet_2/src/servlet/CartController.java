@@ -78,7 +78,24 @@ public class CartController extends HttpServlet
 			doPost_AddToCart(request, response);
 			break;
 		case "/cart/checkout":
-			doPost_Checkout(request, response);
+			String customerName = request.getParameter("customer_name");
+			String customerEmail = request.getParameter("customer_email");
+			String customerAddress = request.getParameter("customer_address");
+			String customerPhone = request.getParameter("customer_phone");
+			if(customerName == "" || customerEmail == "" || 
+					customerAddress == "" || customerPhone == "")
+			{
+				request.setAttribute("message", "Thiếu thông tin khách hàng, mời nhập đầy đủ");
+				doGet_GetCart(request, response);
+				request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+			}
+			else if(request.getSession().getAttribute(Constants_Value.SESSION_CART) == null)
+			{
+				request.setAttribute("message", "Giỏ hàng trống, không thể đặt hàng được");
+				doGet_GetCart(request, response);
+				request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+			}
+			else doPost_Checkout(request, response);
 			break;
 		case "/cart/delete":
 			doPost_ItemDeleteFromCart(request, response);
@@ -129,11 +146,6 @@ public class CartController extends HttpServlet
 		String customerAddress = request.getParameter("customer_address");
 		String customerPhone = request.getParameter("customer_phone");
 		String customerSessionID = UUID.randomUUID().toString();
-		// get session
-		if (request.getSession().getAttribute(Constants_Value.SESSION_CART) != null)
-		{
-			cart = (Cart) request.getSession().getAttribute(Constants_Value.SESSION_CART);
-		}
 
 		try
 		{

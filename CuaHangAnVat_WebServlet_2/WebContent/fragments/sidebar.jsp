@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <div class="col-lg-3 " id="mysidebar">
-	<h1 class="my-4">ABC</h1>
+	<h1 class="my-4">Giỏ hàng</h1>
 	<table class="table">
 		<tr>
 			<th>Sản phẩm</th>

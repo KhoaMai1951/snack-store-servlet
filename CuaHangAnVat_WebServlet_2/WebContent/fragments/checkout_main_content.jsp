@@ -8,7 +8,7 @@
 	<div class="container bg-light">
 		<div class="row">
 			<h1>Order nhanh - Giao ngay</h1>
-
+			<h4>${message}</h4>
 			<table class="table table-hover">
 				<thead class="bg-warning">
 					<tr>

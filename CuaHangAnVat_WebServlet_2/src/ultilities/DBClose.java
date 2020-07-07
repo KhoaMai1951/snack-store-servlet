@@ -3,71 +3,82 @@ package ultilities;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBClose {
-	// clean up resources (in resultSet, statement) after processing  
+public class DBClose
+{
+	// clean up resources (in resultSet, statement) after processing
 	// close connection (conn)
 	public static void closeQuery(DBConn dbConn, ResultSet currentRs)
 	{
-		if(null != dbConn.conn)
+		if (null != dbConn.conn)
 		{
-			try {
-				// clean up resources (in resultSet, statement) after processing  
+			try
+			{
+				// clean up resources (in resultSet, statement) after processing
 				dbConn.resultSet.close();
 				dbConn.statement.close();
 				// close connection (conn)
 				dbConn.conn.close();
-			} catch (SQLException e) {
+			} catch (SQLException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		if(currentRs != null)
+		if (currentRs != null)
 		{
-			try {
+			try
+			{
 				currentRs.close();
-			} catch (SQLException e) {
+			} catch (SQLException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	// close connection (conn)
-		public static void closeQuery(DBConnPoolTest dbConn, ResultSet currentRs)
+	public static void closeQuery(DBConnPoolTest dbConn, ResultSet currentRs)
+	{
+		if (null != dbConn.conn)
 		{
-			if(null != dbConn.conn)
+			try
 			{
-				try {
-					// clean up resources (in resultSet, statement) after processing  
-					dbConn.resultSet.close();
-					dbConn.statement.close();
-					// close connection (conn)
-					dbConn.conn.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			if(currentRs != null)
+				// clean up resources (in resultSet, statement) after processing
+				dbConn.resultSet.close();
+				dbConn.statement.close();
+				// close connection (conn)
+				dbConn.conn.close();
+			} catch (SQLException e)
 			{
-				try {
-					currentRs.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+		if (currentRs != null)
+		{
+			try
+			{
+				currentRs.close();
+			} catch (SQLException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 
 	// close connection (conn)
 	public static void closeUpdate(DBConn dbConn)
 	{
-		if(null != dbConn.conn)
+		if (null != dbConn.conn)
 		{
-			try {
+			try
+			{
 				dbConn.statement.close();
 				dbConn.conn.close();
-			} catch (SQLException e) {
+			} catch (SQLException e)
+			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}

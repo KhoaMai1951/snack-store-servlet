@@ -28,6 +28,13 @@
 		href="<c:url value = "/admin/product/add"/>"> <i
 			class="fas fa-fw fa-tachometer-alt"></i> <span>Thêm mới sản
 				phẩm</span></a></li>
+	<li class="nav-item active"><a class="nav-link" href="<c:url value = "/admin/deleted_product"/>">
+			<i class="fas fa-fw fa-tachometer-alt"></i> <span>Sản phẩm đã xóa</span>
+	</a></li>
+	
+	<!-- Divider -->
+	<hr class="sidebar-divider my-0">
+	
 	<li class="nav-item active"><a class="nav-link" href="index.html">
 			<i class="fas fa-fw fa-tachometer-alt"></i> <span>Xử lý đơn
 				hàng</span>

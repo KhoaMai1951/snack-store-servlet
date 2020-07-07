@@ -1,6 +1,10 @@
 package ultilities;
 
 public class SQLStatement {
+	public static String getAllDeleted(String table)
+	{
+		return "SELECT * FROM " + table + " WHERE is_deleted = 1 ";
+	}
 	public static String getAll(String table)
 	{
 		return "SELECT * FROM " + table + " WHERE is_deleted = 0 ";

@@ -25,7 +25,9 @@ import ultilities.FileHandler;
  */
 @WebServlet(urlPatterns =
 { "/admin/product", "/admin/product/edit", 
-"/admin/product/delete", "/admin/product/add", "/admin/logout" })
+"/admin/product/delete", "/admin/product/add", 
+"/admin/logout", "/admin/deleted_product",
+"/admin/product/restore"})
 @MultipartConfig
 public class AdminProductController extends HttpServlet
 {
@@ -81,14 +83,20 @@ public class AdminProductController extends HttpServlet
 			session.removeAttribute(Constants_Value.IS_ADMIN_LOGIN);
 			response.sendRedirect("/CuaHangAnVat_WebServlet_2/login");
 			break;
+		case "/admin/deleted_product":
+			request.setAttribute("categoryList", CategoryDAO.getAll());
+			request.setAttribute("productList", ProductDAO.getAllDeleted());
+			request.getRequestDispatcher("/pages/deletedProductManagement.jsp").forward(request, response);
+			break;
+		case "/admin/product/restore":
+			ProductDAO.restoreDeletedProductById(Integer.parseInt((String) request.getParameter("productID")));
+			response.sendRedirect(request.getContextPath() + "/admin/deleted_product");
+			break;
 		}
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		String action = request.getServletPath();
