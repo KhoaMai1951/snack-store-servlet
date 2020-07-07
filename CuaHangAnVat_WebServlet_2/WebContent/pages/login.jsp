@@ -23,7 +23,7 @@
 			<div class="col-md-6 m-auto">
 				<h1 class="m-auto">Đăng nhập admin</h1>
 				<br>
-				<form method="POST" action="/CuaHangAnVat_WebServlet_2/LoginServlet">
+				<form method="POST" action="/CuaHangAnVat_WebServlet_2/login">
 					<div class="form-group">
 						<label>Tên người dùng</label> <input name="username" class="form-control"
 							placeholder="username">

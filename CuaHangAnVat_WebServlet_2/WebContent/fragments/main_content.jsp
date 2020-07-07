@@ -13,7 +13,7 @@
 			<!-- Each product is in col-4-md -->
 			<c:forEach items="${requestScope.productList}" var="product">
 				<form method="POST"
-					action="/CuaHangAnVat_WebServlet_2/AddToCartController">
+					action="/CuaHangAnVat_WebServlet_2/cart/add">
 					<div class="card col-4-md p-3 m-4" style="width: 13rem;">
 						<img class="card-img-top" src="resources/${product.imgName}"
 							alt="Card image cap">

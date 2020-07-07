@@ -12,9 +12,9 @@ import dao.AdminDAO;
 import ultilities.Constants_Value;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class View_LoginServlet
  */
-@WebServlet("/LoginServlet")
+@WebServlet(urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,16 +31,22 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		HttpSession session = request.getSession();
+		if(session.getAttribute(Constants_Value.IS_ADMIN_LOGIN) != null)
+		{
+			response.sendRedirect(request.getContextPath() + "/admin/product");
+		}
+		else {
+			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-	
+		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
@@ -49,7 +55,7 @@ public class LoginServlet extends HttpServlet {
 		{
 			session.setAttribute(Constants_Value.IS_ADMIN_LOGIN, 1);
 			//session.removeAttribute(Constants_Value.IS_ADMIN_LOGIN);
-			response.sendRedirect(request.getContextPath() + "/View_ProductManagementController");
+			response.sendRedirect(request.getContextPath() + "/admin/product");
 		}
 	}
 

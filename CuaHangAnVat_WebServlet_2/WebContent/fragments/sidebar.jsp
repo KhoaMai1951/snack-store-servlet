@@ -21,7 +21,7 @@
 			<td><fmt:formatNumber type="currency" value="${sumPrice }" /></td>
 		</tr>
 		<tr>
-			<a href="/CuaHangAnVat_WebServlet_2/View_CheckoutController" class="btn btn-success">Thanh toán</a>
+			<a href="/CuaHangAnVat_WebServlet_2/cart" class="btn btn-success">Thanh toán</a>
 		</tr>
 	</table>
 
@@ -30,7 +30,7 @@
 		<a href="/CuaHangAnVat_WebServlet_2/View_HomeController"
 			class="list-group-item active">Tất cả sản phẩm</a>
 		<c:forEach items="${categoryList}" var="category">
-			<a href="/CuaHangAnVat_WebServlet_2/View_ProductsByCategoryController?category_id=${category.id }"
+			<a href="/CuaHangAnVat_WebServlet_2/category?id=${category.id }"
 				class="list-group-item">${category.name}</a>
 		</c:forEach>
 	</div>

@@ -22,14 +22,14 @@
 <title>Admin</title>
 
 <!-- Custom fonts for this template-->
-<link href="./pages/admin/vendor/fontawesome-free/css/all.min.css"
+<link href="../pages/admin/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="./pages/admin/css/sb-admin-2.min.css" rel="stylesheet">
+<link href="../pages/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -58,7 +58,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active"><a class="nav-link"
-				href="<c:url value = "/View_ProductManagementController"/>"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Chỉnh
+				href="<c:url value = "/admin/product"/>"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Chỉnh
 						sửa sản phẩm</span></a></li>
 			<li class="nav-item active"><a class="nav-link"
 				href="<c:url value = "/View_ProductUploadController"/>"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Thêm
@@ -105,7 +105,7 @@
 									<td>${product.id}</td>
 									<td>${product.name}</td>
 									<td><img width=200rem height=200rem
-										src="resources/${product.imgName}"></td>
+										src="../resources/${product.imgName}"></td>
 									<td>${product.quantity}</td>
 									<td>${product.price}</td>
 									<td>${product.categoryNameFromForeignKey}</td>
@@ -172,21 +172,21 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript-->
-	<script src="./pages/admin/vendor/jquery/jquery.min.js"></script>
-	<script src="./pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="../pages/admin/vendor/jquery/jquery.min.js"></script>
+	<script src="../pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Core plugin JavaScript-->
-	<script src="./pages/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<script src="../pages/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
 	<!-- Custom scripts for all pages-->
-	<script src="./pages/admin/js/sb-admin-2.min.js"></script>
+	<script src="../pages/admin/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
-	<script src="./pages/admin/vendor/chart.js/Chart.min.js"></script>
+	<script src="../pages/admin/vendor/chart.js/Chart.min.js"></script>
 
 	<!-- Page level custom scripts -->
-	<script src="./pages/admin/js/demo/chart-area-demo.js"></script>
-	<script src="./pages/admin/js/demo/chart-pie-demo.js"></script>
+	<script src="../pages/admin/js/demo/chart-area-demo.js"></script>
+	<script src="../pages/admin/js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>

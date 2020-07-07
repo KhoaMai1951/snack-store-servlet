@@ -28,7 +28,7 @@
 							<td><fmt:formatNumber type="currency"
 									value="${item.orderQuantity * item.price}" /></td>
 							<td><form method="POST"
-									action="/CuaHangAnVat_WebServlet_2/ItemDeleteController">
+									action="/CuaHangAnVat_WebServlet_2/cart/delete">
 									<button type="submit" class="btn btn-danger mb-2">Xóa</button>
 									<input name="product_id" hidden type="text" value="${item.id}"></input>
 								</form></td>
@@ -39,10 +39,11 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-8">
-						<form method="POST" action="/CuaHangAnVat_WebServlet_2/CheckoutController">
+						<form method="POST"
+							action="/CuaHangAnVat_WebServlet_2/cart/checkout">
 							<div class="form-group">
-								<label>Tên bạn</label> <input
-									type="text" class="form-control" placeholder="Nhập tên" name="customer_name">
+								<label>Tên bạn</label> <input type="text" class="form-control"
+									placeholder="Nhập tên" name="customer_name">
 							</div>
 							<div class="form-group">
 								<label for="exampleInputEmail1">Email</label> <input
