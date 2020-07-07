@@ -115,7 +115,7 @@ public class CartController extends HttpServlet
 		Product product = new Product();
 		product = ProductDAO.getProductByID(product_id);
 
-		cart.setOrderQuantity(orderQuantity);
+		//cart.setOrderQuantity(orderQuantity);
 		cart.addToCart(product, orderQuantity); // add the product to cart
 
 		response.sendRedirect("/CuaHangAnVat_WebServlet_2/home");

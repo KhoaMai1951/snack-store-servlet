@@ -3,17 +3,20 @@ package entities;
 import java.util.ArrayList;
 
 public class Cart {
+	//list of items in cart
 	private ArrayList<Product> items = new ArrayList<Product>();
+	//total price of all items
 	private int sumPrice = 0;
-	private int orderQuantity = 0;
-
-	public int getOrderQuantity() {
-		return orderQuantity;
-	}
-
-	public void setOrderQuantity(int orderQuantity) {
-		this.orderQuantity = orderQuantity;
-	}
+	
+//	private int orderQuantity = 0;
+//
+//	public int getOrderQuantity() {
+//		return orderQuantity;
+//	}
+//
+//	public void setOrderQuantity(int orderQuantity) {
+//		this.orderQuantity = orderQuantity;
+//	}
 
 	public int getSumPrice() {
 		return sumPrice;
@@ -41,10 +44,10 @@ public class Cart {
 			this.sumPrice += product.getPrice() * orderQuantity;
 		}
 		//item is already in cart
-		else if(checkIfItemAlreadyInCart(product))
+		else
 		{		
 			product.setOrderQuantity(orderQuantity);
-			addExistingItemInCart(product);		
+			addExistingItemInCart(product);
 			this.sumPrice += product.getPrice() * orderQuantity;
 		}
 	}
@@ -56,7 +59,8 @@ public class Cart {
 		{
 			if(product.getId() == this.items.get(i).getId())
 			{				
-				int newOrderQuantity = this.items.get(i).getOrderQuantity() + product.getOrderQuantity();
+				int newOrderQuantity = this.items.get(i).getOrderQuantity() 
+						+ product.getOrderQuantity();
 				this.items.get(i).setOrderQuantity(newOrderQuantity);
 				break;
 			}
