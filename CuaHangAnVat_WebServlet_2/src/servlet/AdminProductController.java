@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import dao.CategoryDAO;
@@ -16,6 +17,7 @@ import dao.ProductDAO;
 import entities.Cart;
 import entities.Category;
 import entities.Product;
+import ultilities.Constants_Value;
 import ultilities.FileHandler;
 
 /**
@@ -23,7 +25,7 @@ import ultilities.FileHandler;
  */
 @WebServlet(urlPatterns =
 { "/admin/product", "/admin/product/edit", 
-"/admin/product/delete", "/admin/product/add" })
+"/admin/product/delete", "/admin/product/add", "/admin/logout" })
 @MultipartConfig
 public class AdminProductController extends HttpServlet
 {
@@ -73,6 +75,11 @@ public class AdminProductController extends HttpServlet
 		case "/admin/product/add":
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			request.getRequestDispatcher("/pages/productUpload.jsp").forward(request, response);
+			break;
+		case "/admin/logout":
+			HttpSession session = request.getSession();
+			session.removeAttribute(Constants_Value.IS_ADMIN_LOGIN);
+			response.sendRedirect("/CuaHangAnVat_WebServlet_2/login");
 			break;
 		}
 
