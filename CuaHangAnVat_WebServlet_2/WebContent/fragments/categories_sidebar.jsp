@@ -10,7 +10,7 @@
 			class="list-group-item active">Tất cả sản phẩm</a>
 		<c:forEach items="${categoryList}" var="category">
 			<a
-				href="/CuaHangAnVat_WebServlet_2/View_ProductsByCategoryController?category_id=${category.id }"
+				href="/CuaHangAnVat_WebServlet_2/category?id=${category.id }"
 				class="list-group-item">${category.name}</a>
 		</c:forEach>
 	</div>
