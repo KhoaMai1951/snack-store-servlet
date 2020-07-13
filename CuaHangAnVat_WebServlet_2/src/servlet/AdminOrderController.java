@@ -87,9 +87,8 @@ public class AdminOrderController extends HttpServlet
 			}
 			if(request.getParameter("customer_name") != "")
 			{
-				System.out.println("Test");
 				customer_name = request.getParameter("customer_name");
-				searchParameterTemp = "UPPER(customer_name) LIKE UPPER('%"+customer_name+"%')";
+				searchParameterTemp = "UPPER(customer.name) LIKE UPPER('%"+customer_name+"%')";
 				searchParameter.add(searchParameterTemp);
 			}
 			if(request.getParameter("phone") != "")
