@@ -16,6 +16,7 @@ public class AdminDAO
 		try
 		{
 			dbConn.query(query);
+			System.out.println(dbConn.resultSet);
 			while(dbConn.resultSet.next())
 			{
 				flag = true;

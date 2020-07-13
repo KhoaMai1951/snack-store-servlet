@@ -129,8 +129,7 @@ public class CartController extends HttpServlet
 		int orderQuantity = Integer.parseInt(request.getParameter("quantity"));
 
 		// Create a new product object from selected id
-		Product product = new Product();
-		product = ProductDAO.getProductByID(product_id);
+		Product product = ProductDAO.getProductByID(product_id);
 
 		//cart.setOrderQuantity(orderQuantity);
 		cart.addToCart(product, orderQuantity); // add the product to cart

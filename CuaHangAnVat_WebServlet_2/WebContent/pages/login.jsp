@@ -11,9 +11,8 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 
 <style>
-.container{
+.container {
 	margin-top: 3rem;
-	 
 }
 </style>
 </head>
@@ -21,16 +20,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 m-auto">
-				<h1 class="m-auto">Đăng nhập admin</h1>
+				<div style={text-align:center}>
+					<h1 class="m-auto">Đăng nhập admin</h1>
+				</div>
+				<h4 class="m-auto text-danger">${message}</h4>
 				<br>
 				<form method="POST" action="/CuaHangAnVat_WebServlet_2/login">
 					<div class="form-group">
-						<label>Tên người dùng</label> <input name="username" class="form-control"
-							placeholder="username">
+						<label>Tên người dùng</label> <input name="username"
+							class="form-control" placeholder="username">
 					</div>
 					<div class="form-group">
-						<label>Mật khẩu</label> <input name="password" class="form-control"
-							placeholder="password">
+						<label>Mật khẩu</label> <input name="password"
+							class="form-control" placeholder="password">
 					</div>
 					<button type="submit" class="btn btn-primary">Đăng nhập</button>
 				</form>

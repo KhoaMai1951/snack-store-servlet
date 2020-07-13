@@ -81,7 +81,7 @@
 									<td>${order.phone}</td>
 									<td><select name="orderStatusId">
 											<c:forEach items="${orderStatusList}" var="status">
-												<option value="${status.id}">${status.name}</option>
+												<option ${order.orderStatus == status.name ? "selected" : ""} value="${status.id}">${status.name}</option>
 											</c:forEach>
 									</select></td>
 									<input hidden type="text" name="id" value="${order.orderID}">

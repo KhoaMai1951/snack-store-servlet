@@ -24,10 +24,8 @@ import ultilities.FileHandler;
  * Servlet implementation class View_ProductManagementController
  */
 @WebServlet(urlPatterns =
-{ "/admin/product", "/admin/product/edit", 
-"/admin/product/delete", "/admin/product/add", 
-"/admin/logout", "/admin/deleted_product",
-"/admin/product/restore"})
+{ "/admin/product", "/admin/product/edit", "/admin/product/delete", "/admin/product/add", "/admin/logout",
+		"/admin/deleted_product", "/admin/product/restore" })
 @MultipartConfig
 public class AdminProductController extends HttpServlet
 {
@@ -52,6 +50,7 @@ public class AdminProductController extends HttpServlet
 		switch (action)
 		{
 		case "/admin/product":
+
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			request.setAttribute("productList", ProductDAO.getAll());
 			// get session
@@ -95,7 +94,6 @@ public class AdminProductController extends HttpServlet
 		}
 
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
@@ -146,9 +144,10 @@ public class AdminProductController extends HttpServlet
 			ProductDAO.updateProduct(category_id, name, quantity, description, price, img_name, product_id);
 		}
 	}
-	
+
 	protected void doPost_UploadProduct(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException, IOException
+	{
 		// TODO Auto-generated method stub
 		FileHandler fl = new FileHandler();
 		String resourcesPath = getServletContext().getRealPath("/") + "resources";
@@ -162,11 +161,14 @@ public class AdminProductController extends HttpServlet
 
 		Part filePart = request.getPart("image");
 		// if don't upload image
-		if (filePart != null) {
+		if (filePart != null)
+		{
 			fl.imageUpload(request, resourcesPath);
 			img_name = fl.fileName;
 			ProductDAO.add(category_id, name, quantity, img_name, description, price);
-		} else {
+		}
+		else
+		{
 			img_name = "";
 			ProductDAO.add(category_id, name, quantity, img_name, description, price);
 		}

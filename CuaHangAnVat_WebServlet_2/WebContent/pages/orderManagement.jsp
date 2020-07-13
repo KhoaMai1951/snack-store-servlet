@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,15 +48,62 @@
 			<!-- Main Content -->
 			<div id="content">
 				<!-- Begin Page Content -->
+				<!-- Search bar -->
 				<div class="container-fluid row">
-					<table class="table col-md-6"
-						style="max-width: 50%; overflow-y: auto">
+					<form method="POST"
+						action='<c:url value = "/admin/order_search"></c:url>'>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<label>Mã đơn hàng</label> <input type="number"
+									class="form-control" name="id" placeholder="Nhập mã đơn hàng">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Tên khách hàng</label> <input type="text"
+									class="form-control" name="customer_name"
+									placeholder="Nhập tên khách hàng">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Số điện thoại</label> <input type="number"
+									class="form-control" name="phone"
+									placeholder="Nhập số điện thoại">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Email</label> <input type="text" class="form-control"
+									name="email" placeholder="Nhập email">
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="form-group col-md-3">
+								<jsp:useBean id="date" class="java.util.Date" />
+								<fmt:formatDate var="time" value="${date}" pattern="yyyy-MM-dd" />
+								<label>Ngày đặt từ</label> <input type="date"
+									class="form-control" name="order_date">
+							</div>
+							<div class="form-group col-md-3">
+								<label>Trạng thái</label> orderStatus 
+								<select name="order_status_id" 
+								class="form-control form-control-md">
+									<option value="">
+									<c:forEach items="${orderStatus}" var="status">
+										<option value="${status.id}">${status.name}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
+						<button type="submit" class="btn btn-primary">Tìm kiếm</button>
+					</form>
+				</div>
+				<br>
+				<div class="container-fluid row">
+					<table class="table col-md-12">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">ID</th>
 								<th scope="col">Tên khách hàng</th>
 								<th scope="col">Ngày đặt hàng</th>
 								<th scope="col">Ngày nhận hàng</th>
+								<th scope="col">SĐT</th>
+								<th scope="col">Email</th>
 								<th scope="col">Trạng thái đơn hàng</th>
 								<th scope="col">Hành động</th>
 							</tr>
@@ -67,6 +115,8 @@
 									<td>${order.customerName}</td>
 									<td>${order.orderDate}</td>
 									<td>${order.deliveredDate}</td>
+									<td>${order.phone}</td>
+									<td>${order.email}</td>
 									<td>${order.orderStatus}</td>
 									<td><a
 										href="<c:url value = "/admin/order/handle?id=${order.orderID}"/>"

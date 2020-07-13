@@ -3,5 +3,6 @@ encoding//WebContent/fragments/admin_sidebar.jsp=UTF-8
 encoding//src/entities/Cart.java=UTF-8
 encoding//src/filter/UTF8_Filter.java=UTF-8
 encoding//src/servlet/CartController.java=UTF-8
+encoding//src/servlet/LoginServlet.java=UTF-8
 encoding//src/ultilities/DBConn.java=UTF-8
 encoding//src/ultilities/FileHandler.java=UTF-8
