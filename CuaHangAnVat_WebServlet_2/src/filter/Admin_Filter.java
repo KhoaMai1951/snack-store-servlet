@@ -53,7 +53,7 @@
 //
 //		if (session.getAttribute(Constants_Value.IS_ADMIN_LOGIN) == null)
 //		{
-//			res.sendRedirect(req.getContextPath() + "/login");
+//			res.sendRedirect(req.getContextPath() + Constants_Value.LOGIN_URL);
 //		}
 //		else
 //		{

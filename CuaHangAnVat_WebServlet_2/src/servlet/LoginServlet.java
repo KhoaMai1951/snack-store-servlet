@@ -15,7 +15,7 @@ import ultilities.Constants_Value;
  * Servlet implementation class View_LoginServlet
  */
 @WebServlet(urlPatterns =
-{ "/login" })
+{ Constants_Value.LOGIN_URL })
 public class LoginServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -36,15 +36,7 @@ public class LoginServlet extends HttpServlet
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		// TODO Auto-generated method stub
-		HttpSession session = request.getSession();
-		if (session.getAttribute(Constants_Value.IS_ADMIN_LOGIN) != null)
-		{
-			response.sendRedirect(request.getContextPath() + "/admin/product");
-		}
-		else
-		{
-			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
-		}
+		request.getRequestDispatcher(Constants_Value.FILE_LOGIN_URL).forward(request, response);
 	}
 
 	/**
@@ -62,12 +54,12 @@ public class LoginServlet extends HttpServlet
 		if (adminDAO.checkUsernameAndPassword(username, password))
 		{
 			session.setAttribute(Constants_Value.IS_ADMIN_LOGIN, 1);
-			response.sendRedirect(request.getContextPath() + "/admin/product");
+			response.sendRedirect(request.getContextPath() + Constants_Value.ADMIN_PRODUCT_MANAGER_URL);
 		}
 		else
 		{
 			request.setAttribute("message", "Password hoặc tên đăng nhập sai!");
-			request.getRequestDispatcher("/pages/login.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_LOGIN_URL).forward(request, response);
 		}
 	}
 

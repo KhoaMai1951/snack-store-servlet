@@ -17,7 +17,7 @@ import ultilities.Constants_Value;
  * Servlet implementation class HomeViewController
  */
 @WebServlet(urlPatterns =
-{"/home", "/category" })
+{Constants_Value.HOME_CATEGORY_URL, Constants_Value.HOME_INDEX_URL})
 public class HomeController extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -42,16 +42,16 @@ public class HomeController extends HttpServlet
 		String action = request.getServletPath();
 		switch (action)
 		{
-		case "/home":
+		case Constants_Value.HOME_INDEX_URL:
 			// get all products
 			request.setAttribute("productList", ProductDAO.getAll());
 			// get all categories
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			// get the current cart
 			doGet_GetCart(request, response);
-			request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_HOME_INDEX_URL).forward(request, response);
 			break;
-		case "/category":
+		case Constants_Value.HOME_CATEGORY_URL:
 			// get products by category
 			int categoryID = Integer.parseInt(request.getParameter("id"));
 			request.setAttribute("productList", ProductDAO.getProductsByCategory(categoryID));
@@ -59,7 +59,7 @@ public class HomeController extends HttpServlet
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			// get the current cart
 			doGet_GetCart(request, response);
-			request.getRequestDispatcher("/pages/index.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_HOME_INDEX_URL).forward(request, response);
 			break;
 		}
 	}

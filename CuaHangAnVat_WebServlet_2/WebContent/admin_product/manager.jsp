@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="ultilities.Constants_Value"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +40,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<%@ include file="/fragments/admin_sidebar.jsp"%>
+		<%@ include file="/fragments/admin_sidebar.jsp" %>
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
@@ -48,81 +48,46 @@
 			<!-- Main Content -->
 			<div id="content">
 				<!-- Begin Page Content -->
-				<!-- Search bar -->
 				<div class="container-fluid row">
-					<form method="POST"
-						action='<c:url value = "/admin/order_search"></c:url>'>
-						<div class="form-row">
-							<div class="form-group col-md-3">
-								<label>Mã đơn hàng</label> <input type="number"
-									class="form-control" name="id" placeholder="Nhập mã đơn hàng">
-							</div>
-							<div class="form-group col-md-3">
-								<label>Tên khách hàng</label> <input type="text"
-									class="form-control" name="customer_name"
-									placeholder="Nhập tên khách hàng">
-							</div>
-							<div class="form-group col-md-3">
-								<label>Số điện thoại</label> <input type="number"
-									class="form-control" name="phone"
-									placeholder="Nhập số điện thoại">
-							</div>
-							<div class="form-group col-md-3">
-								<label>Email</label> <input type="text" class="form-control"
-									name="email" placeholder="Nhập email">
-							</div>
-						</div>
-						<div class="form-row">
-							<div class="form-group col-md-3">
-								<jsp:useBean id="date" class="java.util.Date" />
-								<fmt:formatDate var="time" value="${date}" pattern="yyyy-MM-dd" />
-								<label>Ngày đặt từ</label> <input type="date"
-									class="form-control" name="order_date">
-							</div>
-							<div class="form-group col-md-3">
-								<label>Trạng thái</label> orderStatus 
-								<select name="order_status_id" 
-								class="form-control form-control-md">
-									<option value="">
-									<c:forEach items="${orderStatus}" var="status">
-										<option value="${status.id}">${status.name}</option>
-									</c:forEach>
-								</select>
-							</div>
-						</div>
-						<button type="submit" class="btn btn-primary">Tìm kiếm</button>
-					</form>
-				</div>
-				<br>
-				<div class="container-fluid row">
-					<table class="table col-md-12">
+					<table class="table col-md-6"
+						style="max-width: 50%; overflow-y: auto">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">ID</th>
-								<th scope="col">Tên khách hàng</th>
-								<th scope="col">Ngày đặt hàng</th>
-								<th scope="col">Ngày nhận hàng</th>
-								<th scope="col">SĐT</th>
-								<th scope="col">Email</th>
-								<th scope="col">Trạng thái đơn hàng</th>
+								<th scope="col">Tên sản phẩm</th>
+								<th scope="col">Hình ảnh</th>
+								<th scope="col">Số lượng</th>
+								<th scope="col">Gía</th>
+								<th scope="col">Danh mục</th>
+								<th scope="col">Mô tả</th>
 								<th scope="col">Hành động</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${requestScope.orderList}" var="order">
+							<c:forEach items="${requestScope.productList}" var="product">
 								<tr>
-									<td>${order.orderID}</td>
-									<td>${order.customerName}</td>
-									<td>${order.orderDate}</td>
-									<td>${order.deliveredDate}</td>
-									<td>${order.phone}</td>
-									<td>${order.email}</td>
-									<td>${order.orderStatus}</td>
-									<td><a
-										href="<c:url value = "/admin/order/handle?id=${order.orderID}"/>"
-										class="btn btn-primary active" role="button"
-										aria-pressed="true">Xử lý đơn hàng</a></td>
+									<td>${product.id}</td>
+									<td>${product.name}</td>
+									<td><img width=200rem height=200rem
+										src="../resources/${product.imgName}"></td>
+									<td>${product.quantity}</td>
+									<td>${product.price}</td>
+									<td>${product.categoryNameFromForeignKey}</td>
+									<td><textarea readonly name="description" rows="10"
+											cols="30">
+							${product.description}
+						</textarea></td>
+									<td>
+										<a class="btn btn-danger"
+										href="<c:url value = "<%=Constants_Value.ADMIN_PRODUCT_DELETE_URL%>" />?productID=${product.id}"
+										role="button">Xóa</a>
+										
+										<a class="btn btn-primary"
+										href="<c:url value = "<%=Constants_Value.ADMIN_PRODUCT_EDIT_URL%>" />?product_id=${product.id}"
+										role="button">Chỉnh sửa</a>
+									</td>
 								</tr>
+
 							</c:forEach>
 						</tbody>
 					</table>

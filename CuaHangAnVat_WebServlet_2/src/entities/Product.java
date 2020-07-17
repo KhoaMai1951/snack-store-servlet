@@ -1,19 +1,22 @@
 package entities;
 
-public class Product {
+public class Product
+{
 	int id;
 	String name;
 	String imgName;
-	int quantity;	//how much's left in inventory
+	int quantity; // how much's left in inventory
 	int orderQuantity;
 	int price;
 	boolean isDeleted;
 	int categoryID;
 	String categoryNameFromForeignKey;
-	
-	public Product(int id, String name, String imgName, int quantity, int price, int categoryID, String categoryNameFromForeignKey, String description) {
+
+	public Product(int id, String name, String imgName, int quantity, int price, int categoryID,
+			String categoryNameFromForeignKey, String description)
+	{
 		super();
-		this.categoryID =  categoryID;
+		this.categoryID = categoryID;
 		this.id = id;
 		this.name = name;
 		this.imgName = imgName;
@@ -22,7 +25,9 @@ public class Product {
 		this.categoryNameFromForeignKey = categoryNameFromForeignKey;
 		this.description = description;
 	}
-	public Product(int id, String name, String imgName, int quantity, int price, int categoryID, String description) {
+
+	public Product(int id, String name, String imgName, int quantity, int price, int categoryID, String description)
+	{
 		super();
 		this.id = id;
 		this.name = name;
@@ -32,8 +37,10 @@ public class Product {
 		this.categoryID = categoryID;
 		this.description = description;
 	}
-	public Product(int id, String name, String imgName, int quantity, int orderQuantity,
-			int price, int categoryID, String description) {
+
+	public Product(int id, String name, String imgName, int quantity, int orderQuantity, int price, int categoryID,
+			String description)
+	{
 		super();
 		this.id = id;
 		this.name = name;
@@ -44,72 +51,111 @@ public class Product {
 		this.categoryID = categoryID;
 		this.description = description;
 	}
-	public int getOrderQuantity() {
+
+	public int getOrderQuantity()
+	{
 		return orderQuantity;
 	}
-	public void setOrderQuantity(int orderQuantity) {
+
+	public void setOrderQuantity(int orderQuantity)
+	{
 		this.orderQuantity = orderQuantity;
 	}
-	public String getCategoryNameFromForeignKey() {
+
+	public String getCategoryNameFromForeignKey()
+	{
 		return categoryNameFromForeignKey;
 	}
-	public void setCategoryNameFromForeignKey(String categoryNameFromForeignKey) {
+
+	public void setCategoryNameFromForeignKey(String categoryNameFromForeignKey)
+	{
 		this.categoryNameFromForeignKey = categoryNameFromForeignKey;
 	}
+
 	String description;
-	
-	
-	public String getDescription() {
+
+	public String getDescription()
+	{
 		return description;
 	}
-	public void setDescription(String description) {
+
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
-	public int getId() {
+
+	public int getId()
+	{
 		return id;
 	}
-	public void setId(int id) {
+
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-	public String getName() {
+
+	public String getName()
+	{
 		return name;
 	}
-	public void setName(String name) {
+
+	public void setName(String name)
+	{
 		this.name = name;
 	}
-	public String getImgName() {
+
+	public String getImgName()
+	{
 		return imgName;
 	}
-	public void setImgName(String imgName) {
+
+	public void setImgName(String imgName)
+	{
 		this.imgName = imgName;
 	}
-	public int getQuantity() {
+
+	public int getQuantity()
+	{
 		return quantity;
 	}
-	public void setQuantity(int quantity) {
+
+	public void setQuantity(int quantity)
+	{
 		this.quantity = quantity;
 	}
-	public int getPrice() {
+
+	public int getPrice()
+	{
 		return price;
 	}
-	public void setPrice(int price) {
+
+	public void setPrice(int price)
+	{
 		this.price = price;
 	}
-	public boolean isDeleted() {
+
+	public boolean isDeleted()
+	{
 		return isDeleted;
 	}
-	public void setDeleted(boolean isDeleted) {
+
+	public void setDeleted(boolean isDeleted)
+	{
 		this.isDeleted = isDeleted;
 	}
-	public int getCategoryID() {
+
+	public int getCategoryID()
+	{
 		return categoryID;
 	}
-	public void setCategoryID(int categoryID) {
+
+	public void setCategoryID(int categoryID)
+	{
 		this.categoryID = categoryID;
 	}
-	
+
 	public Product()
 	{
-		
+
 	}
 }

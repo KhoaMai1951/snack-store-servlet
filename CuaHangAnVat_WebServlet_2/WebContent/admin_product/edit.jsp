@@ -39,7 +39,7 @@
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<%@ include file="/fragments/admin_sidebar.jsp" %>
+		<%@ include file="/fragments/admin_sidebar.jsp"%>
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
@@ -47,9 +47,10 @@
 			<!-- Main Content -->
 			<div id="content">
 				<!-- Begin Page Content -->
+				<!-- Order info -->
 				<div class="container-fluid row">
 					<form method="POST" enctype="multipart/form-data"
-						action="/CuaHangAnVat_WebServlet_2/admin/product/edit">
+						action="<c:url value = "<%=Constants_Value.ADMIN_PRODUCT_EDIT_URL%>" />">
 						<table style="max-width: 100%;" class="table col-md-6"
 							style="max-width: 50%; overflow-y: auto">
 							<thead class="thead-dark">
@@ -69,8 +70,8 @@
 									<td>${product.id}</td>
 									<td><input type="text" name="name" value="${product.name}"></input></td>
 									<td><img width=200rem height=200rem
-										src="resources/${product.imgName}"> <input name="image"
-										type="file" accept="image/*"></td>
+										src="../../resources/${product.imgName}"> <input
+										name="image" type="file" accept="image/*"></td>
 									<td><input type="number" name="quantity"
 										value="${product.quantity}"></input></td>
 									<td><input type="number" name="price"
@@ -92,6 +93,8 @@
 						</table>
 					</form>
 				</div>
+
+				
 				<!-- End of Main Content -->
 
 			</div>

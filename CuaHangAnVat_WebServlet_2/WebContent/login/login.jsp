@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="ultilities.Constants_Value"%>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +26,7 @@
 				</div>
 				<h4 class="m-auto text-danger">${message}</h4>
 				<br>
-				<form method="POST" action="/CuaHangAnVat_WebServlet_2/login">
+				<form method="POST" action="<c:url value="<%=Constants_Value.LOGIN_URL %>"/>">
 					<div class="form-group">
 						<label>Tên người dùng</label> <input name="username"
 							class="form-control" placeholder="username">

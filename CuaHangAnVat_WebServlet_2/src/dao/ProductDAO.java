@@ -30,6 +30,51 @@ public class ProductDAO
 		}
 	}
 
+	// get all products by order id
+	public static ArrayList<Product> getAllByOrderId(int order_id)
+	{
+		ArrayList<Product> productList = new ArrayList<Product>();
+
+		// DBConn dbConn = new DBConn();
+		DBConnPoolTest dbConn = new DBConnPoolTest();
+		String query = "SELECT product.name as product_name, product.img_name, \r\n" + 
+				"ordered_product.quantity as order_quantity, product.price,\r\n" + 
+				"category.name as category_name, product.description, product.product_id\r\n" + 
+				"FROM cuahanganvat.product\r\n" + 
+				"LEFT JOIN category ON category.category_id = product.category_id\r\n" + 
+				"LEFT JOIN ordered_product ON cuahanganvat.product.product_id = ordered_product.product_id\r\n" + 
+				"LEFT JOIN cuahanganvat.order ON cuahanganvat.order.order_id = ordered_product.order_id\r\n" + 
+				"WHERE cuahanganvat.order.order_id = "+order_id+"";
+
+		ResultSet rs = null;
+		try
+		{
+			rs = dbConn.query(query);
+
+			while (rs.next())
+			{
+				Product product = new Product();
+				product.setName(rs.getString("product_name"));
+				product.setImgName(rs.getString("img_name"));
+				product.setOrderQuantity(rs.getInt("order_quantity"));
+				product.setPrice(rs.getInt("price"));
+				product.setCategoryNameFromForeignKey(rs.getString("category_name"));
+				product.setDescription(rs.getString("description"));
+				product.setId(rs.getInt("product_id"));
+				productList.add(product);
+			}
+		} catch (SQLException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally
+		{
+			// DBClose.closeQuery(dbConn, rs);
+		}
+
+		return productList;
+	}
+	
 	// get product by id
 	public static Product getProductByID(int product_id)
 	{

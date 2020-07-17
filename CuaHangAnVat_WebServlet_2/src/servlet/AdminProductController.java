@@ -12,6 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.sun.corba.se.impl.orbutil.closure.Constant;
+import com.sun.corba.se.pept.transport.ContactInfo;
+import com.sun.xml.internal.bind.v2.runtime.reflect.opt.Const;
+
 import dao.CategoryDAO;
 import dao.ProductDAO;
 import entities.Cart;
@@ -24,8 +28,10 @@ import ultilities.FileHandler;
  * Servlet implementation class View_ProductManagementController
  */
 @WebServlet(urlPatterns =
-{ "/admin/product", "/admin/product/edit", "/admin/product/delete", "/admin/product/add", "/admin/logout",
-		"/admin/deleted_product", "/admin/product/restore" })
+{ Constants_Value.ADMIN_PRODUCT_MANAGER_URL, Constants_Value.ADMIN_PRODUCT_EDIT_URL,
+		Constants_Value.ADMIN_PRODUCT_DELETE_URL, Constants_Value.ADMIN_PRODUCT_UPLOAD_URL,
+		Constants_Value.ADMIN_PRODUCT_DELETED_PRODUCT_URL, Constants_Value.ADMIN_PRODUCT_RESTORE_URL,
+		Constants_Value.ADMIN_LOGOUT_URL})
 @MultipartConfig
 public class AdminProductController extends HttpServlet
 {
@@ -49,8 +55,7 @@ public class AdminProductController extends HttpServlet
 		String action = request.getServletPath();
 		switch (action)
 		{
-		case "/admin/product":
-
+		case Constants_Value.ADMIN_PRODUCT_MANAGER_URL:
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			request.setAttribute("productList", ProductDAO.getAll());
 			// get session
@@ -60,36 +65,36 @@ public class AdminProductController extends HttpServlet
 				request.setAttribute("items", cart.getItems());
 				request.setAttribute("sumPrice", cart.getSumPrice());
 			}
-			request.getRequestDispatcher("/pages/productManagement.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_ADMIN_PRODUCT_MANAGER_URL).forward(request, response);
 			break;
-		case "/admin/product/edit":
+		case Constants_Value.ADMIN_PRODUCT_EDIT_URL:
 			Product product = ProductDAO.getProduct(request.getParameter("product_id"));
 			ArrayList<Category> categoryList = CategoryDAO.getAll();
 			request.setAttribute("categoryList", categoryList);
 			request.setAttribute("product", product);
-			request.getRequestDispatcher("/pages/productUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_ADMIN_PRODUCT_EDIT_URL).forward(request, response);
 			break;
-		case "/admin/product/delete":
+		case Constants_Value.ADMIN_PRODUCT_DELETE_URL:
 			ProductDAO.delete(request.getParameter("productID"));
-			response.sendRedirect("/CuaHangAnVat_WebServlet_2/admin/product");
+			response.sendRedirect(request.getContextPath() + Constants_Value.ADMIN_PRODUCT_MANAGER_URL);
 			break;
-		case "/admin/product/add":
+		case Constants_Value.ADMIN_PRODUCT_UPLOAD_URL:
 			request.setAttribute("categoryList", CategoryDAO.getAll());
-			request.getRequestDispatcher("/pages/productUpload.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_ADMIN_PRODUCT_UPLOAD_URL).forward(request, response);
 			break;
-		case "/admin/logout":
+		case Constants_Value.ADMIN_LOGOUT_URL:
 			HttpSession session = request.getSession();
 			session.removeAttribute(Constants_Value.IS_ADMIN_LOGIN);
-			response.sendRedirect("/CuaHangAnVat_WebServlet_2/login");
+			response.sendRedirect(request.getContextPath() + Constants_Value.LOGIN_URL);
 			break;
-		case "/admin/deleted_product":
+		case Constants_Value.ADMIN_PRODUCT_DELETED_PRODUCT_URL:
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			request.setAttribute("productList", ProductDAO.getAllDeleted());
-			request.getRequestDispatcher("/pages/deletedProductManagement.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_ADMIN_PRODUCT_DELETED_PRODUCT_URL).forward(request, response);
 			break;
-		case "/admin/product/restore":
+		case Constants_Value.ADMIN_PRODUCT_RESTORE_URL:
 			ProductDAO.restoreDeletedProductById(Integer.parseInt((String) request.getParameter("productID")));
-			response.sendRedirect(request.getContextPath() + "/admin/deleted_product");
+			response.sendRedirect(request.getContextPath() + Constants_Value.ADMIN_PRODUCT_DELETED_PRODUCT_URL);
 			break;
 		}
 
@@ -100,13 +105,13 @@ public class AdminProductController extends HttpServlet
 		String action = request.getServletPath();
 		switch (action)
 		{
-		case "/admin/product/edit":
+		case Constants_Value.ADMIN_PRODUCT_EDIT_URL:
 			doPost_EditProduct(request, response);
-			response.sendRedirect("/CuaHangAnVat_WebServlet_2/admin/product");
+			response.sendRedirect(request.getContextPath() + Constants_Value.ADMIN_PRODUCT_MANAGER_URL);
 			break;
-		case "/admin/product/add":
+		case Constants_Value.ADMIN_PRODUCT_UPLOAD_URL:
 			doPost_UploadProduct(request, response);
-			response.sendRedirect("/CuaHangAnVat_WebServlet_2/admin/product");
+			response.sendRedirect(request.getContextPath() + Constants_Value.ADMIN_PRODUCT_DELETED_PRODUCT_URL);
 			break;
 		}
 	}
@@ -134,7 +139,6 @@ public class AdminProductController extends HttpServlet
 			img_name = request.getParameter("img_name");
 
 			ProductDAO.updateProduct(category_id, name, quantity, description, price, img_name, product_id);
-
 		}
 		// change product image too
 		else

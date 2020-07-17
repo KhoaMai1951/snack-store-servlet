@@ -25,7 +25,8 @@ import ultilities.Constants_Value;
  * Servlet implementation class AddToCartController
  */
 @WebServlet(urlPatterns =
-{ "/cart/add", "/cart/checkout", "/cart", "/cart/delete" })
+{ Constants_Value.CART_ADD_URL, Constants_Value.CART_CHECKOUT_URL, Constants_Value.CART_DELETE_URL,
+		Constants_Value.CART_URL })
 public class CartController extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
@@ -56,11 +57,11 @@ public class CartController extends HttpServlet
 		String action = request.getServletPath();
 		switch (action)
 		{
-		case "/cart":
+		case Constants_Value.CART_URL:
 			// get all categories
 			request.setAttribute("categoryList", CategoryDAO.getAll());
 			doGet_GetCart(request, response);
-			request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+			request.getRequestDispatcher(Constants_Value.FILE_HOME_CHECKOUT_URL).forward(request, response);
 			break;
 		}
 	}
@@ -74,30 +75,30 @@ public class CartController extends HttpServlet
 		String action = request.getServletPath();
 		switch (action)
 		{
-		case "/cart/add":
+		case Constants_Value.CART_ADD_URL:
 			doPost_AddToCart(request, response);
 			break;
-		case "/cart/checkout":
+		case Constants_Value.CART_CHECKOUT_URL:
 			String customerName = request.getParameter("customer_name");
 			String customerEmail = request.getParameter("customer_email");
 			String customerAddress = request.getParameter("customer_address");
 			String customerPhone = request.getParameter("customer_phone");
-			if(customerName == "" || customerEmail == "" || 
-					customerAddress == "" || customerPhone == "")
+			if (customerName == "" || customerEmail == "" || customerAddress == "" || customerPhone == "")
 			{
 				request.setAttribute("message", "Thiếu thông tin khách hàng, mời nhập đầy đủ");
 				doGet_GetCart(request, response);
-				request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+				request.getRequestDispatcher(Constants_Value.FILE_HOME_CHECKOUT_URL).forward(request, response);
 			}
-			else if(request.getSession().getAttribute(Constants_Value.SESSION_CART) == null)
+			else if (request.getSession().getAttribute(Constants_Value.SESSION_CART) == null)
 			{
 				request.setAttribute("message", "Giỏ hàng trống, không thể đặt hàng được");
 				doGet_GetCart(request, response);
-				request.getRequestDispatcher("/pages/checkout.jsp").forward(request, response);
+				request.getRequestDispatcher(Constants_Value.FILE_HOME_CHECKOUT_URL).forward(request, response);
 			}
-			else doPost_Checkout(request, response);
+			else
+				doPost_Checkout(request, response);
 			break;
-		case "/cart/delete":
+		case Constants_Value.CART_DELETE_URL:
 			doPost_ItemDeleteFromCart(request, response);
 			break;
 		}
@@ -131,10 +132,10 @@ public class CartController extends HttpServlet
 		// Create a new product object from selected id
 		Product product = ProductDAO.getProductByID(product_id);
 
-		//cart.setOrderQuantity(orderQuantity);
+		// cart.setOrderQuantity(orderQuantity);
 		cart.addToCart(product, orderQuantity); // add the product to cart
 
-		response.sendRedirect("/CuaHangAnVat_WebServlet_2/home");
+		response.sendRedirect(request.getContextPath() + Constants_Value.HOME_INDEX_URL);
 	}
 
 	protected void doPost_Checkout(HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -195,7 +196,7 @@ public class CartController extends HttpServlet
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		response.sendRedirect("/CuaHangAnVat_WebServlet_2/home");
+		response.sendRedirect(request.getContextPath() + Constants_Value.HOME_INDEX_URL);
 	}
 
 	protected void doPost_ItemDeleteFromCart(HttpServletRequest request, HttpServletResponse response)
@@ -210,6 +211,6 @@ public class CartController extends HttpServlet
 		cart.deleteItem(product_id);
 
 		// redirect
-		response.sendRedirect("/CuaHangAnVat_WebServlet_2/cart");
+		response.sendRedirect(request.getContextPath() + Constants_Value.CART_URL);
 	}
 }

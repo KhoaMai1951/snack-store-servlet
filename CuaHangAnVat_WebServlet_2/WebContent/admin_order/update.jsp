@@ -21,7 +21,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Admin</title>
+<title>Xử lý đơn hàng</title>
 
 <!-- Custom fonts for this template-->
 <link href="../../pages/admin/vendor/fontawesome-free/css/all.min.css"
@@ -50,6 +50,7 @@
 			<div id="content">
 				<!-- Begin Page Content -->
 				<div class="container-fluid row">
+					<h1>Thông tin đơn hàng</h1>
 					<form method="POST" action="<c:url value = "/admin/order/handle"/>">
 						<table style="max-width: 100%;" class="table col-md-6"
 							style="max-width: 50%; overflow-y: auto">
@@ -71,8 +72,8 @@
 									<td>${order.orderID}</td>
 									<td>${order.customerName}</td>
 									<td>${order.orderDate}</td>
-									<c:set var = "now" value = "<%= new java.util.Date()%>" />
-									<fmt:formatDate var="date" pattern = "yyyy-MM-dd" value = "${now}" />
+									<c:set var="now" value="<%=new java.util.Date()%>" />
+									<fmt:formatDate var="date" pattern="yyyy-MM-dd" value="${now}" />
 									<td><input
 										value="${order.deliveredDate == null ? date : order.deliveredDate}"
 										type="date" name="deliveredDate"></td>
@@ -81,7 +82,9 @@
 									<td>${order.phone}</td>
 									<td><select name="orderStatusId">
 											<c:forEach items="${orderStatusList}" var="status">
-												<option ${order.orderStatus == status.name ? "selected" : ""} value="${status.id}">${status.name}</option>
+												<option
+													${order.orderStatus == status.name ? "selected" : ""}
+													value="${status.id}">${status.name}</option>
 											</c:forEach>
 									</select></td>
 									<input hidden type="text" name="id" value="${order.orderID}">
@@ -91,37 +94,80 @@
 						</table>
 					</form>
 				</div>
+
+				<!-- Ordered Products -->
+				<div class="container-fluid row">
+					<h1>Danh sách sản phẩm đặt hàng</h1>
+					<table class="table col-md-6">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">ID</th>
+								<th scope="col">Tên sản phẩm</th>
+								<th scope="col">Hình ảnh</th>
+								<th scope="col">Số lượng đặt mua</th>
+								<th scope="col">Gía</th>
+								<th scope="col">Danh mục</th>
+								<th scope="col">Mô tả</th>
+								<th scope="col">Hành động</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${requestScope.productList}" var="product">
+								<tr>
+									<td>${product.id}</td>
+									<td>${product.name}</td>
+									<td><img width=200rem height=200rem
+										src="../../resources/${product.imgName}"></td>
+									<td>${product.quantity}</td>
+									<td>${product.price}</td>
+									<td>${product.categoryNameFromForeignKey}</td>
+									<td><textarea readonly name="description" rows="10"
+											cols="30">
+							${product.description}
+						</textarea></td>
+									<td><a class="btn btn-danger"
+										href="/CuaHangAnVat_WebServlet_2/admin/product/delete?productID=${product.id}"
+										role="button">Xóa</a> <a class="btn btn-primary"
+										href="/CuaHangAnVat_WebServlet_2/admin/product/edit?product_id=${product.id}"
+										role="button">Chỉnh sửa</a></td>
+								</tr>
+
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 				<!-- End of Main Content -->
 
 			</div>
 			<!-- End of Content Wrapper -->
 
 		</div>
-		<!-- End of Page Wrapper -->
+	</div>
+	<!-- End of Page Wrapper -->
 
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="../../pages/admin/vendor/jquery/jquery.min.js"></script>
-		<script
-			src="../../pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Bootstrap core JavaScript-->
+	<script src="../../pages/admin/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="../../pages/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script
-			src="../../pages/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script
+		src="../../pages/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="../../pages/admin/js/sb-admin-2.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="../../pages/admin/js/sb-admin-2.min.js"></script>
 
-		<!-- Page level plugins -->
-		<script src="../../pages/admin/vendor/chart.js/Chart.min.js"></script>
+	<!-- Page level plugins -->
+	<script src="../../pages/admin/vendor/chart.js/Chart.min.js"></script>
 
-		<!-- Page level custom scripts -->
-		<script src="../../pages/admin/js/demo/chart-area-demo.js"></script>
-		<script src="../../pages/admin/js/demo/chart-pie-demo.js"></script>
+	<!-- Page level custom scripts -->
+	<script src="../../pages/admin/js/demo/chart-area-demo.js"></script>
+	<script src="../../pages/admin/js/demo/chart-pie-demo.js"></script>
 </body>
 
 </html>

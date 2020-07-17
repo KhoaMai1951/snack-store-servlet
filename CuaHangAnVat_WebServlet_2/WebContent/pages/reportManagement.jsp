@@ -19,7 +19,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Admin</title>
+<title>Báo cáo</title>
 
 <!-- Custom fonts for this template-->
 <link href="../pages/admin/vendor/fontawesome-free/css/all.min.css"
@@ -31,15 +31,63 @@
 <!-- Custom styles for this template-->
 <link href="../pages/admin/css/sb-admin-2.min.css" rel="stylesheet">
 
+<style>
+.myChart {
+	width: 400rem !important;
+}
+</style>
+
+<script>
+function float2vnd(value) {
+	return "vnd " + (value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+}
+
+function renderChart() {
+	data = [ 
+		<c:forEach items="${incomeList}"
+			var="income">
+			<c:out value="${income}"/>,
+		</c:forEach>
+		];
+	 console.log(data);
+	labels = [ "tháng 1", "tháng 2", "tháng 3", "tháng 4", "tháng 5",
+			"tháng 6", "tháng 7", "tháng 8", "tháng 9", "tháng 10", "tháng 11", "tháng 12" ];
+	var ctx = document.getElementById("myChart").getContext('2d');
+	var myChart = new Chart(ctx, {
+		type : 'line',
+		data : {
+			labels : labels,
+			datasets : [ {
+				label : 'Năm nay',
+				data : data,
+				borderColor : 'rgba(75, 192, 192, 1)',
+				backgroundColor : 'rgba(75, 192, 192, 0.2)',
+			} ]
+		},
+		options : {
+			scales : {
+				yAxes : [ {
+					ticks : {
+						beginAtZero : true,
+						callback : function(value, index, values) {
+							return float2vnd(value);
+						}
+					}
+				} ]
+			}
+		},
+	});
+}
+</script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onload="renderChart();">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
 		<!-- Sidebar -->
-		<%@ include file="/fragments/admin_sidebar.jsp" %>
+		<%@ include file="/fragments/admin_sidebar.jsp"%>
 		<!-- End of Sidebar -->
 
 		<!-- Content Wrapper -->
@@ -47,47 +95,45 @@
 			<!-- Main Content -->
 			<div id="content">
 				<!-- Begin Page Content -->
-				<div class="container-fluid row">
-					<table class="table col-md-6"
-						style="max-width: 50%; overflow-y: auto">
-						<thead class="thead-dark">
-							<tr>
-								<th scope="col">ID</th>
-								<th scope="col">Tên sản phẩm</th>
-								<th scope="col">Hình ảnh</th>
-								<th scope="col">Số lượng</th>
-								<th scope="col">Gía</th>
-								<th scope="col">Danh mục</th>
-								<th scope="col">Mô tả</th>
-								<th scope="col">Hành động</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach items="${requestScope.productList}" var="product">
-								<tr>
-									<td>${product.id}</td>
-									<td>${product.name}</td>
-									<td><img width=200rem height=200rem
-										src="../resources/${product.imgName}"></td>
-									<td>${product.quantity}</td>
-									<td>${product.price}</td>
-									<td>${product.categoryNameFromForeignKey}</td>
-									<td><textarea readonly name="description" rows="10"
-											cols="30">
-							${product.description}
-						</textarea></td>
-									<td>
-										<a class="btn btn-danger"
-										href="/CuaHangAnVat_WebServlet_2/admin/product/restore?productID=${product.id}"
-										role="button">Khôi phục</a>
-									</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				<!-- /.container-fluid -->
+				<div class="container" style="margin:0;">
+					<div class="row">
+						<div class="col-6-sm">
+							<!-- Area Chart -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="myAreaChart"></canvas>
+									</div>
+									<hr>
+									Styling for the area chart can be found in the
+									<code>/js/demo/chart-area-demo.js</code>
+									file.
+								</div>
+							</div>
+						</div>
+						<div class="col-6-sm">
+							<!-- Area Chart -->
+							<div class="card shadow mb-4">
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">Area Chart</h6>
+								</div>
+								<div class="card-body">
+									<div class="chart-area">
+										<canvas id="myAreaChart"></canvas>
+									</div>
+									<hr>
+									Styling for the area chart can be found in the
+									<code>/js/demo/chart-area-demo.js</code>
+									file.
+								</div>
+							</div>
+						</div>
+					</div>
 
+				</div>
 			</div>
 			<!-- End of Main Content -->
 
@@ -137,7 +183,9 @@
 	<script src="../pages/admin/js/sb-admin-2.min.js"></script>
 
 	<!-- Page level plugins -->
+	<!-- Page level plugins -->
 	<script src="../pages/admin/vendor/chart.js/Chart.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
 	<!-- Page level custom scripts -->
 	<script src="../pages/admin/js/demo/chart-area-demo.js"></script>
